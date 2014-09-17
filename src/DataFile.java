@@ -34,14 +34,14 @@ abstract class DataFile extends File{
         this.filePath = filePath;
         try {
             br = new BufferedReader(new FileReader(filePath));
-            //
+            //gets first line of file which is the number of records in the file
             this.numberOfRecords = __getNumberOfRecords();
         } catch (FileNotFoundException e) {
             //TODO: add exception handling
         }
     }
 
-    //only to be called in dataFile constructor, ensuring that correct value is returned
+    //internal method only to be called in dataFile constructor, ensuring that correct value is returned
     protected int __getNumberOfRecords() throws IOException {
         return Integer.parseInt(br.readLine());
     }

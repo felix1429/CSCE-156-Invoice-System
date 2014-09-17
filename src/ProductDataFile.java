@@ -27,4 +27,9 @@ public class ProductDataFile extends DataFile{
     public ProductDataFile(String filePath) throws IOException {
         super(filePath);
     }
+
+    private String getPersonFromPersonCode(String personCode) {
+        //TODO: flesh out method
+        return "";
+    }
 }
