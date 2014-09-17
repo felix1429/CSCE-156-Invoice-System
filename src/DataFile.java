@@ -6,6 +6,8 @@ abstract class DataFile extends File{
 
     protected String filePath;
 
+    protected int numberOfRecords;
+
     //arrayList for unknown number of email addresses
     protected ArrayList<String> emailAddresses = new ArrayList<String>();
 
@@ -32,5 +34,10 @@ abstract class DataFile extends File{
     public DataFile(String filePath) {
         super(filePath);
         this.filePath = filePath;
+    }
+
+    protected int getNumberOfRecords() {
+        //TODO: read first line of file to get number of records
+        return 0;
     }
 }
