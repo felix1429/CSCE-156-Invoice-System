@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class DataConverter {
 
@@ -18,14 +19,15 @@ public class DataConverter {
         System.out.println(dc.inputFileRelativePath.getAbsolutePath());
     }
 
-    public void iterateOverInputFiles(File inputFileRelativePath) throws FileNotFoundException{
+    //iterates over files in input dir
+    public void iterateOverInputFiles(File inputFileRelativePath) throws IOException {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
-                //TODO: parse customers.dat
+                CustomerDataFile cData = new CustomerDataFile(inputFileRelativePath + inputFile.getName());
             }else if(inputFile.getName().equals("Persons.dat")) {
-                //TODO: parse persons.dat
+                PersonDataFile pData = new PersonDataFile(inputFileRelativePath + inputFile.getName());
             }else if(inputFile.getName().equals("Products.dat")) {
-                //TODO: parse products.dat
+                ProductDataFile pData = new ProductDataFile(inputFileRelativePath + inputFile.getName());
             }else {
                 throw new FileNotFoundException("There was an error in retrieving the file\n"
                 + inputFile.getName() + " was not found in the input directory");
