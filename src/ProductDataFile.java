@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 public class ProductDataFile extends DataFile{
 
@@ -23,7 +24,7 @@ public class ProductDataFile extends DataFile{
             "hourlyFee"
     };
 
-    public ProductDataFile(String filePath) {
+    public ProductDataFile(String filePath) throws IOException {
         super(filePath);
     }
 }

@@ -1,16 +1,14 @@
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 //extends file so DataFile object has all functionalities of a file
 abstract class DataFile extends File{
 
+    protected BufferedReader br;
     protected String filePath;
-
     protected int numberOfRecords;
-
     //arrayList for unknown number of email addresses
     protected ArrayList<String> emailAddresses = new ArrayList<String>();
-
     //array of person data fields
     protected Object person[] = {
             "personCode",
@@ -18,7 +16,6 @@ abstract class DataFile extends File{
             "lastName",
             emailAddresses
     };
-
     //array of address data fields
     protected String address[] = {
             "street",
@@ -27,17 +24,25 @@ abstract class DataFile extends File{
             "zip",
             "country"
     };
-
     //array that contains indices of data fields
     protected Object keyArray[];
 
-    public DataFile(String filePath) {
+
+    //constructor
+    public DataFile(String filePath) throws IOException {
         super(filePath);
         this.filePath = filePath;
+        try {
+            br = new BufferedReader(new FileReader(filePath));
+            //
+            this.numberOfRecords = __getNumberOfRecords();
+        } catch (FileNotFoundException e) {
+            //TODO: add exception handling
+        }
     }
 
-    protected int getNumberOfRecords() {
-        //TODO: read first line of file to get number of records
-        return 0;
+    //only to be called in dataFile constructor, ensuring that correct value is returned
+    protected int __getNumberOfRecords() throws IOException {
+        return Integer.parseInt(br.readLine());
     }
 }

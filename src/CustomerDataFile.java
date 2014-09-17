@@ -1,6 +1,8 @@
+import java.io.IOException;
 
 public class CustomerDataFile extends DataFile{
 
+    protected int numberOfRecords;
     protected Object keyArray[] = {
             "customerCode",
             "type",
@@ -9,7 +11,7 @@ public class CustomerDataFile extends DataFile{
             address
     };
 
-    public CustomerDataFile(String filePath) {
+    public CustomerDataFile(String filePath) throws IOException {
         super(filePath);
     }
 }
