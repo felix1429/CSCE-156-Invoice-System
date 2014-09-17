@@ -5,18 +5,18 @@ import java.io.IOException;
 public class DataConverter {
 
     //directory that holds all input files
-    public final File inputFileRelativePath = new File("../data/input");
+    public final File inputFileRelativePath = new File("data/input");
 
     //directory that holds all output files
-    public final File outputFileRelativePath = new File("../data/output");
+    public final File outputFileRelativePath = new File("data/output");
 
     //list of files in input dir
     File[] listOfInputFiles = inputFileRelativePath.listFiles();
 
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         DataConverter dc = new DataConverter();
-        System.out.println(dc.inputFileRelativePath.getAbsolutePath());
+        dc.iterateOverInputFiles(dc.inputFileRelativePath);
     }
 
     //iterates over files in input dir
@@ -24,6 +24,7 @@ public class DataConverter {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
                 CustomerDataFile cData = new CustomerDataFile(inputFileRelativePath + inputFile.getName());
+                System.out.println(cData.getAbsolutePath());
             }else if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFileRelativePath + inputFile.getName());
             }else if(inputFile.getName().equals("Products.dat")) {
