@@ -21,11 +21,11 @@ public class DataConverter {
     public void iterateOverInputFiles(File inputFileRelativePath) throws FileNotFoundException{
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
-                //
+                //TODO: parse customers.dat
             }else if(inputFile.getName().equals("Persons.dat")) {
-
+                //TODO: parse persons.dat
             }else if(inputFile.getName().equals("Products.dat")) {
-
+                //TODO: parse products.dat
             }else {
                 throw new FileNotFoundException("There was an error in retrieving the file\n"
                 + inputFile.getName() + " was not found in the input directory");
