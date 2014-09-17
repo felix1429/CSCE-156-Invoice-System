@@ -1,7 +1,7 @@
 
 public class CustomerDataFile extends DataFile{
 
-    private Object keyArray[] = {
+    protected Object keyArray[] = {
             "customerCode",
             "type",
             "primaryContact",
