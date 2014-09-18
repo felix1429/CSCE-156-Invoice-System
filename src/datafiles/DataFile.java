@@ -10,7 +10,7 @@ import org.json.*;
 abstract class DataFile extends File{
 
     protected JSONHandler jHandler = new JSONHandler();
-    protected BufferedReader br;
+    protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
     //name of JSON file, ie persons, products, customers
     protected String JSONName;
     //holds tokens
@@ -43,33 +43,20 @@ abstract class DataFile extends File{
         super(filePath);
         System.out.println(filePath);
         this.filePath = filePath;
-        try {
-            System.out.println(this.filePath);
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
-            //gets first line of file which is the number of records in the file
-            this.numberOfRecords = _getNumberOfRecords(br);
-            System.out.println(this.numberOfRecords);
-            System.out.println("I am being called");
-        } catch (FileNotFoundException e) {
-            System.out.println("I fucked up");
-            //TODO: add exception handling
+        System.out.println(this.filePath);
+        fileArray = this.readFileToArray();
+        this.numberOfRecords = jHandler.getNumberOfRecords(fileArray.get(0));
+        System.out.println(this.numberOfRecords);
+    }
+
+    //splits file into array of arrayLists
+    protected ArrayList<String[]> readFileToArray() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        String line = null;
+        while((line = br.readLine()) != null) {
+            tokenArray = jHandler.parseToTokens(line);
+            fileArray.add(tokenArray);
         }
-    }
-
-    //internal method only to be called in dataFile constructor, ensuring that correct value is returned
-    protected int _getNumberOfRecords(BufferedReader br) throws IOException {
-        return Integer.parseInt(br.readLine());
-    }
-
-    protected String[] parseToTokens(String line) {
-        tokenArray = line.split(";");
-        return tokenArray;
-    }
-
-    protected JSONObject createJSONShell(String JSONName) {
-        JSONObject outerJSONObject = new JSONObject();
-        ArrayList<JSONObject> objectList = new ArrayList<JSONObject>();
-        outerJSONObject.put(JSONName, objectList);
-        return outerJSONObject;
+        return fileArray;
     }
 }
