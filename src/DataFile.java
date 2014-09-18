@@ -6,6 +6,10 @@ import org.json.*;
 abstract class DataFile extends File{
 
     protected BufferedReader br;
+    //name of JSON file, ie persons, products, customers
+    protected String JSONName;
+    //holds tokens
+    protected String tokenArray[];
     protected String filePath;
     protected int numberOfRecords;
     //arrayList for unknown number of email addresses
@@ -32,18 +36,35 @@ abstract class DataFile extends File{
     //constructor
     public DataFile(String filePath) throws IOException {
         super(filePath);
+        System.out.println(filePath);
         this.filePath = filePath;
         try {
-            br = new BufferedReader(new FileReader(filePath));
+            System.out.println(this.filePath);
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
             //gets first line of file which is the number of records in the file
-            this.numberOfRecords = __getNumberOfRecords();
+            this.numberOfRecords = _getNumberOfRecords(br);
+            System.out.println(this.numberOfRecords);
+            System.out.println("I am being called");
         } catch (FileNotFoundException e) {
+            System.out.println("I fucked up");
             //TODO: add exception handling
         }
     }
 
     //internal method only to be called in dataFile constructor, ensuring that correct value is returned
-    protected int __getNumberOfRecords() throws IOException {
+    protected int _getNumberOfRecords(BufferedReader br) throws IOException {
         return Integer.parseInt(br.readLine());
+    }
+
+    protected String[] parseToTokens(String line) {
+        tokenArray = line.split(";");
+        return tokenArray;
+    }
+
+    protected JSONObject createJSONShell(String JSONName) {
+        JSONObject outerJSONObject = new JSONObject();
+        ArrayList<JSONObject> objectList = new ArrayList<JSONObject>();
+        outerJSONObject.put(JSONName, objectList);
+        return outerJSONObject;
     }
 }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import org.json.*;
 
 public class CustomerDataFile extends DataFile{
 
@@ -13,5 +14,8 @@ public class CustomerDataFile extends DataFile{
 
     public CustomerDataFile(String filePath) throws IOException {
         super(filePath);
+        this.JSONName = "customers";
     }
+
+
 }

@@ -24,7 +24,6 @@ public class DataConverter {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
                 CustomerDataFile cData = new CustomerDataFile(inputFileRelativePath + inputFile.getName());
-                System.out.println(cData.getAbsolutePath());
             }else if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFileRelativePath + inputFile.getName());
             }else if(inputFile.getName().equals("Products.dat")) {
