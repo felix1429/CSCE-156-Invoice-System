@@ -41,12 +41,9 @@ abstract class DataFile extends File{
     //constructor
     public DataFile(String filePath) throws IOException {
         super(filePath);
-        System.out.println(filePath);
         this.filePath = filePath;
-        System.out.println(this.filePath);
         fileArray = this.readFileToArray();
         this.numberOfRecords = jHandler.getNumberOfRecords(fileArray.get(0));
-        System.out.println(this.numberOfRecords);
     }
 
     //splits file into array of arrayLists

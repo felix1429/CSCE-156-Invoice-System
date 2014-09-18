@@ -25,11 +25,11 @@ public class DataConverter {
     public void iterateOverInputFiles(File inputFileRelativePath) throws IOException {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
-                CustomerDataFile cData = new CustomerDataFile(inputFileRelativePath + inputFile.getName());
+                CustomerDataFile cData = new CustomerDataFile(inputFile.getAbsolutePath());
             }else if(inputFile.getName().equals("Persons.dat")) {
-                PersonDataFile pData = new PersonDataFile(inputFileRelativePath + inputFile.getName());
+                PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
             }else if(inputFile.getName().equals("Products.dat")) {
-                ProductDataFile pData = new ProductDataFile(inputFileRelativePath + inputFile.getName());
+                ProductDataFile pData = new ProductDataFile(inputFile.getAbsolutePath());
             }else {
                 throw new FileNotFoundException("There was an error in retrieving the file\n"
                 + inputFile.getName() + " was not found in the input directory");
