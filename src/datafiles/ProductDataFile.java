@@ -1,6 +1,10 @@
+package datafiles;
+
+import datafiles.DataFile;
+
 import java.io.IOException;
 
-public class ProductDataFile extends DataFile{
+public class ProductDataFile extends DataFile {
 
     protected Object keyArray[] = {
             "code",

@@ -1,7 +1,9 @@
+package datafiles;
+
 import java.io.IOException;
 import org.json.*;
 
-public class CustomerDataFile extends DataFile{
+public class CustomerDataFile extends DataFile {
 
     protected int numberOfRecords;
     protected Object keyArray[] = {

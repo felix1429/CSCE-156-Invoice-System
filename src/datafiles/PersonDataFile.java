@@ -1,7 +1,10 @@
-import java.io.IOException;
-import java.util.ArrayList;
+package datafiles;
 
-public class PersonDataFile extends DataFile{
+import datafiles.DataFile;
+
+import java.io.IOException;
+
+public class PersonDataFile extends DataFile {
 
     public PersonDataFile (String filePath) throws IOException {
         super(filePath);

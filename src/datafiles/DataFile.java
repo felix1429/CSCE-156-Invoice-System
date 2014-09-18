@@ -1,10 +1,15 @@
+package datafiles;
+
 import java.io.*;
 import java.util.ArrayList;
+
+import jsonhandler.JSONHandler;
 import org.json.*;
 
-//extends file so DataFile object has all functionalities of a file
+//extends file so datafiles.DataFile object has all functionalities of a file
 abstract class DataFile extends File{
 
+    protected JSONHandler jHandler = new JSONHandler();
     protected BufferedReader br;
     //name of JSON file, ie persons, products, customers
     protected String JSONName;
