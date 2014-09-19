@@ -28,10 +28,14 @@ abstract class DataFile extends File{
             "zip",
             "country"
     };
+    protected Object name[] = {
+            "firstName",
+            "lastName",
+    };
     //array of person data fields
     protected Object person[] = {
             "personCode",
-            "name",
+            name,
             address,
             emailAddresses
     };
