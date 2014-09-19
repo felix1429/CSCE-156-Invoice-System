@@ -18,6 +18,7 @@ public class PersonDataFile extends DataFile {
         this.JSONName = "persons";
         this.outerJSONObject = jHandler.createJSONShell(this.JSONName);
         this.finalJSONString = this.convertToJSON(fileArray);
+        System.out.println(this.finalJSONString);
     }
 
     public String convertToJSON(ArrayList<String[]> fileArray) {
@@ -27,7 +28,7 @@ public class PersonDataFile extends DataFile {
             //creates new object for each entry
             JSONObject tempJObject = new JSONObject();
             //loop over objects in person
-            for (int count = 0;count < person.length;count++) {
+            for (int count = 0;count < tokenArray.length;count++) {
                 Object ob = person[count];
                 tempValue = tokenArray[count];
                 if (!(ob instanceof ArrayList)) { //TODO: better checking for email/address/name
@@ -35,12 +36,11 @@ public class PersonDataFile extends DataFile {
                     tempJObject.append(ob.toString(), tempValue);
                 } else {
                     if(ob == emailAddresses) {
-                        tempJObject.append(ob.toString(), tempValue);
-                        System.out.println(tempJObject.toString());
+                        tempJObject.append("emailAddresses", tempValue);
                     }else if(ob == address) {
-                        tempJObject.append(ob.toString(), tempValue);
+                        tempJObject.append("address", tempValue);
                     } else if(ob == name) {
-                        tempJObject.append(ob.toString(), tempValue);
+                        tempJObject.append("name", tempValue);
 
 
                     }else {
@@ -50,6 +50,6 @@ public class PersonDataFile extends DataFile {
             }
             JSONObjectList.add(tempJObject);
         }
-        return "";
+        return JSONObjectList.toString();
     }
 }
