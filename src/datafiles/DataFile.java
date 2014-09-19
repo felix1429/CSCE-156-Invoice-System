@@ -20,13 +20,6 @@ abstract class DataFile extends File{
     protected int numberOfRecords;
     //arrayList for unknown number of email addresses
     protected ArrayList<String> emailAddresses = new ArrayList<String>();
-    //array of person data fields
-    protected Object person[] = {
-            "personCode",
-            "firstName",
-            "lastName",
-            emailAddresses
-    };
     //array of address data fields
     protected String address[] = {
             "street",
@@ -35,13 +28,20 @@ abstract class DataFile extends File{
             "zip",
             "country"
     };
+    //array of person data fields
+    protected Object person[] = {
+            "personCode",
+            "name",
+            address,
+            emailAddresses
+    };
 
 
     //constructor
     public DataFile(String filePath) throws IOException {
         super(filePath);
         this.filePath = filePath;
-        fileArray = this.readFileToArray();
+        this.fileArray = this.readFileToArray();
         this.numberOfRecords = jHandler.getNumberOfRecords(fileArray.get(0));
     }
 

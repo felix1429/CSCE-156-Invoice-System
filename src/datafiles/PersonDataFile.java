@@ -12,14 +12,12 @@ public class PersonDataFile extends DataFile {
     protected JSONObject outerJSONObject;
     protected ArrayList<JSONObject> JSONObjectList = new ArrayList<JSONObject>();
     protected JSONHandler jHandler = new JSONHandler();
-    protected  ArrayList<String[]> fileArray = new ArrayList<String[]>();
 
     public PersonDataFile (String filePath) throws IOException {
         super(filePath);
-        this.fileArray = this.readFileToArray();
         this.JSONName = "persons";
         this.outerJSONObject = jHandler.createJSONShell(this.JSONName);
-        this.JSONObjectList = this.outerJSONObject.get(this.JSONName);
+//        this.JSONObjectList = this.outerJSONObject.get(this.JSONName);
         this.finalJSONString = this.convertToJSON(fileArray);
     }
 
@@ -30,9 +28,10 @@ public class PersonDataFile extends DataFile {
             JSONObject tempJObject = new JSONObject();
             tokenArray = fileArray.get(counter);
             //loop over objects in person
-            for (Object ob : person) {
-                if (!(ob instanceof ArrayList)) {
-                    tempJObject.put(ob.toString(), tokenArray[counter - 1]);
+            for (int count = 0;count < person.length;count++) {
+                Object ob = person[count];
+                if (!(ob instanceof ArrayList)) { //TODO: better checking for email/address
+                    tempJObject.append(ob.toString(), tokenArray[count].toString());
                 } else {
                     if(ob == emailAddresses) {
 
