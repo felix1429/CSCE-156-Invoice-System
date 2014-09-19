@@ -4,16 +4,17 @@ import java.io.*;
 import java.util.ArrayList;
 
 import jsonhandler.JSONHandler;
-import org.json.*;
+import org.json.JSONObject;
 
-//extends file so datafiles.DataFile object has all functionalities of a file
+//extends file so DataFile object has all functionalities of a file
 abstract class DataFile extends File{
 
+    protected String finalJSONString;
     protected JSONHandler jHandler = new JSONHandler();
     protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
-    //name of JSON file, ie persons, products, customers
     protected String JSONName;
-    //holds tokens
+    protected JSONObject outerJSONObject;
+    //holds json tokens from file lines
     protected String tokenArray[];
     protected String filePath;
     protected int numberOfRecords;
@@ -34,8 +35,6 @@ abstract class DataFile extends File{
             "zip",
             "country"
     };
-    //array that contains indices of data fields
-    protected Object keyArray[];
 
 
     //constructor

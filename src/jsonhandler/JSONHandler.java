@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class JSONHandler {
 
-    String tokenArray[];
+    private String tokenArray[];
 
     //internal method only to be called in dataFile constructor, ensuring that correct value is returned
     public int getNumberOfRecords(String arrList[]) throws IOException {

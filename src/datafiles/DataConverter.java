@@ -18,11 +18,11 @@ public class DataConverter {
 
     public static void main(String args[]) throws IOException {
         DataConverter dc = new DataConverter();
-        dc.iterateOverInputFiles(dc.inputFileRelativePath);
+        dc.iterateOverInputFiles();
     }
 
     //iterates over files in input dir
-    public void iterateOverInputFiles(File inputFileRelativePath) throws IOException {
+    public void iterateOverInputFiles() throws IOException {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
                 CustomerDataFile cData = new CustomerDataFile(inputFile.getAbsolutePath());
