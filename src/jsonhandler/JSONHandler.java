@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 public class JSONHandler {
 
-    private String tokenArray[];
-
     //internal method only to be called in dataFile constructor, ensuring that correct value is returned
     public int getNumberOfRecords(String arrList[]) throws IOException {
         return Integer.parseInt(arrList[0]);
@@ -16,8 +14,7 @@ public class JSONHandler {
 
     //splits line into json tokens
     public String[] parseToTokens(String line) {
-        tokenArray = line.split(";");
-        return tokenArray;
+        return line.split(";");
     }
 
     public JSONObject createJSONShell(String JSONName) {
