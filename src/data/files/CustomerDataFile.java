@@ -1,10 +1,14 @@
-package datafiles;
+package data.files;
+
+import data.controllers.DataFieldController;
 
 import java.io.IOException;
-import org.json.*;
+import java.util.ArrayList;
 
 public class CustomerDataFile extends DataFile {
 
+    private DataFieldController dfc;
+    private ArrayList<String> address = dfc.getAddressList();
     protected int numberOfRecords;
     protected Object keyArray[] = {
             "customerCode",

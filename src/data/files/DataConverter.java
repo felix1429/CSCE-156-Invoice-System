@@ -1,4 +1,4 @@
-package datafiles;
+package data.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,10 +7,10 @@ import java.io.IOException;
 public class DataConverter {
 
     //directory that holds all input files
-    public final File inputFileRelativePath = new File("data/input");
+    public final File inputFileRelativePath = new File("dataFiles/input");
 
     //directory that holds all output files
-    public final File outputFileRelativePath = new File("data/output");
+    public final File outputFileRelativePath = new File("dataFiles/output");
 
     //list of files in input dir
     File[] listOfInputFiles = inputFileRelativePath.listFiles();

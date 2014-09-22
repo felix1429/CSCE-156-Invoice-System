@@ -1,16 +1,16 @@
-package datafiles;
+package data.files;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import jsonhandler.JSONHandler;
+import data.controllers.JSONController;
 import org.json.JSONObject;
 
 //extends file so DataFile object has all functionalities of a file
 abstract class DataFile extends File{
 
     protected String finalJSONString;
-    protected JSONHandler jHandler = new JSONHandler();
+    protected JSONController jHandler = new JSONController();
     protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
     protected String JSONName;
     protected JSONObject outerJSONObject;
@@ -18,31 +18,6 @@ abstract class DataFile extends File{
     protected String tokenArray[];
     protected String filePath;
     protected int numberOfRecords;
-    //arrayList for unknown number of email addresses
-    protected ArrayList<String> emailAddresses = new ArrayList<String>();
-    //array of address data fields
-    protected ArrayList<String> address = new ArrayList<String>() {
-        {
-            add("street");
-            add("city");
-            add("state");
-            add("zip");
-            add("country");
-        }};
-    protected ArrayList<String> name = new ArrayList<String>() {
-        {
-            add("firstName");
-            add("lastName");
-        }};
-    //array of person data fields
-    protected ArrayList<Object> person = new ArrayList<Object>(){
-        {
-            add("personCode");
-            add(name);
-            add(address);
-            add(emailAddresses);
-        }};
-
 
     //constructor
     public DataFile(String filePath) throws IOException {

@@ -1,26 +1,31 @@
-package datafiles;
+package data.files;
 
-import datafiles.DataFile;
+import data.controllers.DataFieldController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ProductDataFile extends DataFile {
+
+    private DataFieldController dfc;
+    private ArrayList<String> name = dfc.getNameList();
+    private ArrayList<Object> person = dfc.getPersonList();
 
     protected Object keyArray[] = {
             "code",
             "productType"
     };
     private Object equipmentArray [] = {
-            "name",
+            name,
             "pricePerUnit"
     };
     private Object liscenceArray [] = {
-            "name",
+            name,
             "serviceFee",
             "annualLiscenceFee"
     };
     private Object consultationArray [] = {
-            "name",
+            name,
             person,
             "hourlyFee"
     };

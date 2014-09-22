@@ -1,6 +1,7 @@
-package datafiles;
+package data.files;
 
-import jsonhandler.JSONHandler;
+import data.controllers.DataFieldController;
+import data.controllers.JSONController;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -11,7 +12,12 @@ public class PersonDataFile extends DataFile {
     protected String tempValue;
     protected JSONObject outerJSONObject;
     protected ArrayList<JSONObject> JSONObjectList = new ArrayList<JSONObject>();
-    protected JSONHandler jHandler = new JSONHandler();
+    protected JSONController jHandler = new JSONController();
+    private DataFieldController dfc;
+    private ArrayList<Object> person = dfc.getPersonList();
+    private ArrayList<String> name = dfc.getNameList();
+    private ArrayList<String> address = dfc.getAddressList();
+    private ArrayList<String> emailAddresses = dfc.getEmailList();
 
     public PersonDataFile (String filePath) throws IOException {
         super(filePath);
@@ -36,6 +42,7 @@ public class PersonDataFile extends DataFile {
                     tempJObject.append(ob.toString(), tempValue);
                 } else {
                     if(ob == emailAddresses) {
+
                         tempJObject.append("emailAddresses", tempValue);
                     }else if(ob == address) {
                         tempJObject.append("address", tempValue);
