@@ -29,7 +29,7 @@ public class PersonDataFile extends DataFile {
             JSONObject tempJObject = new JSONObject();
             //loop over objects in person
             for (int count = 0;count < tokenArray.length;count++) {
-                Object ob = person[count];
+                Object ob = person.get(count);
                 tempValue = tokenArray[count];
                 if (!(ob instanceof ArrayList)) { //TODO: better checking for email/address/name
                     //TODO: I know when you use append the value is in an array, but org.json has a valueToString method
@@ -41,8 +41,6 @@ public class PersonDataFile extends DataFile {
                         tempJObject.append("address", tempValue);
                     } else if(ob == name) {
                         tempJObject.append("name", tempValue);
-
-
                     }else {
                         System.out.println("This should not happen");
                     }

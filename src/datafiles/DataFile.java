@@ -21,24 +21,27 @@ abstract class DataFile extends File{
     //arrayList for unknown number of email addresses
     protected ArrayList<String> emailAddresses = new ArrayList<String>();
     //array of address data fields
-    protected String address[] = {
-            "street",
-            "city",
-            "state",
-            "zip",
-            "country"
-    };
-    protected Object name[] = {
-            "firstName",
-            "lastName",
-    };
+    protected ArrayList<String> address = new ArrayList<String>() {
+        {
+            add("street");
+            add("city");
+            add("state");
+            add("zip");
+            add("country");
+        }};
+    protected ArrayList<String> name = new ArrayList<String>() {
+        {
+            add("firstName");
+            add("lastName");
+        }};
     //array of person data fields
-    protected Object person[] = {
-            "personCode",
-            name,
-            address,
-            emailAddresses
-    };
+    protected ArrayList<Object> person = new ArrayList<Object>(){
+        {
+            add("personCode");
+            add(name);
+            add(address);
+            add(emailAddresses);
+        }};
 
 
     //constructor
