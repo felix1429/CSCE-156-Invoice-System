@@ -70,7 +70,7 @@ public class DataFieldController {
         String values[] = splitToTokens(input);
         String[][] nameArray = new String[2][2];
         nameArray[0] = new String[] {"lastName", values[0]};
-        nameArray[1] = new String[] {"firstName", values[1]};
+        nameArray[1] = new String[] {"firstName", values[1].replaceAll(" ","")};
         return nameArray;
     }
 }
