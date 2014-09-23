@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class PersonDataFile extends DataFile {
 
     protected String tempValue;
-    protected JSONObject outerJSONObject;
+    protected String outerJSONObject;
     protected JSONArray JSONArrayList = new JSONArray();
     protected JSONController jHandler = new JSONController();
     private DataFieldController dfc = new DataFieldController();
@@ -23,9 +23,9 @@ public class PersonDataFile extends DataFile {
     public PersonDataFile (String filePath) throws IOException {
         super(filePath);
         this.JSONName = "persons";
-        this.outerJSONObject = jHandler.createJSONShell(this.JSONName);
         this.finalJSONString = this.convertToJSON(fileArray);
-        System.out.println(this.finalJSONString);
+        this. outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
+        System.out.println(this.outerJSONObject);
     }
 
     public String convertToJSON(ArrayList<String[]> fileArray) {
@@ -43,12 +43,13 @@ public class PersonDataFile extends DataFile {
                 } else {
                     JSONObject aTempJSONObject = new JSONObject();
                     if(ob == emailAddresses) {
-
-                        tempJObject.append("emailAddresses", tempValue);
+                        tempJObject.put("emails", dfc.parseEmail(tempValue));
                     }else if(ob == address) {
-                        tempJObject.append("address", tempValue);
+                        tempJObject.put("address", dfc.parseAddress(tempValue, aTempJSONObject));
                     } else if(ob == name) {
-                        tempJObject.append("name", tempValue);
+                        String[][] tempArray = dfc.parseName(tempValue);
+                        tempJObject.put(tempArray[0][0], tempArray[0][1]);
+                        tempJObject.put(tempArray[1][0], tempArray[1][1]);
                     }else {
                         System.out.println("This should not happen");
                     }
@@ -56,6 +57,6 @@ public class PersonDataFile extends DataFile {
             }
             JSONArrayList.put(tempJObject);
         }
-        return JSONArrayList.toString(4);
+        return JSONArrayList.toString(2);
     }
 }

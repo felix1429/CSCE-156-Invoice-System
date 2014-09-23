@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class DataFieldController {
 
+    private JSONObject tempJSONObject;
     private ArrayList<String> emailAddresses = new ArrayList<String>();
-
     private ArrayList<String> address = new ArrayList<String>() {
         {
             add("street");
@@ -16,13 +16,11 @@ public class DataFieldController {
             add("zip");
             add("country");
         }};
-
     private ArrayList<String> name = new ArrayList<String>() {
         {
             add("firstName");
             add("lastName");
         }};
-
     private ArrayList<Object> person = new ArrayList<Object>(){
         {
             add("personCode");
@@ -51,8 +49,28 @@ public class DataFieldController {
         return emailAddresses;
     }
 
-//    public JSONObject parseEmail() {
-//
-//    }
+    public ArrayList<String> parseEmail(String input) {
+        String values[] = splitToTokens(input);
+        ArrayList<String> tempArrayList = new ArrayList<String>();
+        for(String st : values) {
+            tempArrayList.add(st);
+        }
+        return tempArrayList;
+    }
 
+    public JSONObject parseAddress(String input, JSONObject temp) {
+        String values[] = splitToTokens(input);
+        for(int i = 0; i < values.length; i++) {
+            temp.put(address.get(i), values[i]);
+        }
+        return temp;
+    }
+
+    public String[][] parseName(String input) {
+        String values[] = splitToTokens(input);
+        String[][] nameArray = new String[2][2];
+        nameArray[0] = new String[] {"lastName", values[0]};
+        nameArray[1] = new String[] {"firstName", values[1]};
+        return nameArray;
+    }
 }

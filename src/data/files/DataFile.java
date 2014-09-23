@@ -13,7 +13,7 @@ abstract class DataFile extends File{
     protected JSONController jHandler = new JSONController();
     protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
     protected String JSONName;
-    protected JSONObject outerJSONObject;
+    protected String outerJSONObject;
     //holds json tokens from file lines
     protected String tokenArray[];
     protected String filePath;

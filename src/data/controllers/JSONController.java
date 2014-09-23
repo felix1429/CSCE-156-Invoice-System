@@ -17,10 +17,7 @@ public class JSONController {
         return line.split(";");
     }
 
-    public JSONObject createJSONShell(String JSONName) {
-        JSONObject outerJSONObject = new JSONObject();
-        ArrayList<JSONObject> objectList = new ArrayList<JSONObject>();
-        outerJSONObject.put(JSONName, objectList);
-        return outerJSONObject;
+    public String createJSONShell(String JSONName, String finalString) {
+        return "{\n\"" + JSONName + "\": " + finalString + "}";
     }
 }
