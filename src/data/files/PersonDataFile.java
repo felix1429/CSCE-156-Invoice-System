@@ -24,7 +24,7 @@ public class PersonDataFile extends DataFile {
         super(filePath);
         this.JSONName = "persons";
         this.finalJSONString = this.convertToJSON(fileArray);
-        this. outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
+        this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
         System.out.println(this.outerJSONObject);
     }
 
@@ -58,5 +58,9 @@ public class PersonDataFile extends DataFile {
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList.toString(2);
+    }
+
+    public String getOuterJSONObject() {
+        return this.outerJSONObject;
     }
 }

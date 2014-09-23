@@ -28,6 +28,7 @@ public class DataConverter {
                 CustomerDataFile cData = new CustomerDataFile(inputFile.getAbsolutePath());
             }else if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
+                System.out.println(pData.getOuterJSONObject());
             }else if(inputFile.getName().equals("Products.dat")) {
                 ProductDataFile pData = new ProductDataFile(inputFile.getAbsolutePath());
             }else {
