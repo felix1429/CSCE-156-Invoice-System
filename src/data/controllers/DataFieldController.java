@@ -1,5 +1,7 @@
 package data.controllers;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class DataFieldController {
@@ -48,5 +50,9 @@ public class DataFieldController {
     public ArrayList<String> getEmailList() {
         return emailAddresses;
     }
+
+//    public JSONObject parseEmail() {
+//
+//    }
 
 }

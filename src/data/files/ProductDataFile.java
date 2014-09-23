@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ProductDataFile extends DataFile {
 
-    private DataFieldController dfc;
+    private DataFieldController dfc = new DataFieldController();
     private ArrayList<String> name = dfc.getNameList();
     private ArrayList<Object> person = dfc.getPersonList();
 

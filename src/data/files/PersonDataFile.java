@@ -2,6 +2,7 @@ package data.files;
 
 import data.controllers.DataFieldController;
 import data.controllers.JSONController;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -11,9 +12,9 @@ public class PersonDataFile extends DataFile {
 
     protected String tempValue;
     protected JSONObject outerJSONObject;
-    protected ArrayList<JSONObject> JSONObjectList = new ArrayList<JSONObject>();
+    protected JSONArray JSONArrayList = new JSONArray();
     protected JSONController jHandler = new JSONController();
-    private DataFieldController dfc;
+    private DataFieldController dfc = new DataFieldController();
     private ArrayList<Object> person = dfc.getPersonList();
     private ArrayList<String> name = dfc.getNameList();
     private ArrayList<String> address = dfc.getAddressList();
@@ -37,10 +38,10 @@ public class PersonDataFile extends DataFile {
             for (int count = 0;count < tokenArray.length;count++) {
                 Object ob = person.get(count);
                 tempValue = tokenArray[count];
-                if (!(ob instanceof ArrayList)) { //TODO: better checking for email/address/name
-                    //TODO: I know when you use append the value is in an array, but org.json has a valueToString method
-                    tempJObject.append(ob.toString(), tempValue);
+                if (!(ob instanceof ArrayList)) {
+                    tempJObject.put(ob.toString(), tempValue);
                 } else {
+                    JSONObject aTempJSONObject = new JSONObject();
                     if(ob == emailAddresses) {
 
                         tempJObject.append("emailAddresses", tempValue);
@@ -53,8 +54,8 @@ public class PersonDataFile extends DataFile {
                     }
                 }
             }
-            JSONObjectList.add(tempJObject);
+            JSONArrayList.put(tempJObject);
         }
-        return JSONObjectList.toString();
+        return JSONArrayList.toString(4);
     }
 }
