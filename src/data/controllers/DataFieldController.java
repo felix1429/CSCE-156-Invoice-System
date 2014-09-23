@@ -60,8 +60,13 @@ public class DataFieldController {
 
     public JSONObject parseAddress(String input, JSONObject temp) {
         String values[] = splitToTokens(input);
+        String output;
         for(int i = 0; i < values.length; i++) {
-            temp.put(address.get(i), values[i]);
+            output = values[i];
+            if(!address.get(i).equals("street")) {
+                output = output.replaceAll(" ", "");
+            }
+            temp.put(address.get(i), output);
         }
         return temp;
     }
