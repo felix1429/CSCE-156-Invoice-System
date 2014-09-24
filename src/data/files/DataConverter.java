@@ -30,7 +30,7 @@ public class DataConverter {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
                 System.out.println(pData.getOuterJSONObject());
             }else if(inputFile.getName().equals("Products.dat")) {
-                ProductDataFile pData = new ProductDataFile(inputFile.getAbsolutePath());
+                ProductDataFile prData = new ProductDataFile(inputFile.getAbsolutePath());
             }else {
                 throw new FileNotFoundException("There was an error in retrieving the file\n"
                 + inputFile.getName() + " was not found in the input directory");
