@@ -26,9 +26,9 @@ public class DataConverter {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Customers.dat")) {
                 CustomerDataFile cData = new CustomerDataFile(inputFile.getAbsolutePath());
+                System.out.println(cData.finalJSONString);
             }else if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
-                System.out.println(pData.getOuterJSONObject());
             }else if(inputFile.getName().equals("Products.dat")) {
                 ProductDataFile prData = new ProductDataFile(inputFile.getAbsolutePath());
             }else {

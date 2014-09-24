@@ -14,6 +14,7 @@ public class PersonDataFile extends DataFile {
 
     protected String tempValue;
     protected String outerJSONObject;
+    protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
     protected JSONController jHandler = new JSONController();
     private String tempPersonCode;
@@ -55,11 +56,11 @@ public class PersonDataFile extends DataFile {
                         tempJObject.put(tempArray[0][0], tempArray[0][1]);
                         tempJObject.put(tempArray[1][0], tempArray[1][1]);
                     }else {
-                        System.out.println("This should not happen");
+                        System.out.println("This should not happen\nSomething is wrong");
                     }
                 }
             }
-            jHandler.personCodeMap.put(tempPersonCode, tempJObject);
+            JSONController.personCodeMap.put(tempPersonCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;

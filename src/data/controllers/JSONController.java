@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class JSONController {
 
-    public HashMap<String, JSONObject> personCodeMap = new HashMap<String, JSONObject>();
+    public static HashMap<String, JSONObject> personCodeMap = new HashMap<String, JSONObject>();
 
     //internal method only to be called in dataFile constructor, ensuring that correct value is returned
     public int getNumberOfRecords(String arrList[]) throws IOException {
