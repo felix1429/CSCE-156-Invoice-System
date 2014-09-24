@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PersonDataFile extends DataFile {
 
@@ -14,6 +16,7 @@ public class PersonDataFile extends DataFile {
     protected String outerJSONObject;
     protected JSONArray JSONArrayList = new JSONArray();
     protected JSONController jHandler = new JSONController();
+    private String tempPersonCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<Object> person = dfc.getPersonList();
     private ArrayList<String> name = dfc.getNameList();
@@ -28,7 +31,7 @@ public class PersonDataFile extends DataFile {
         this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
     }
 
-    public JSONArray convertToJSON(ArrayList<String[]> fileArray) {
+    private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
         //loop over lines of file
         for(int counter = 1;counter < fileArray.size();counter++) {
             tokenArray = fileArray.get(counter);
@@ -39,7 +42,8 @@ public class PersonDataFile extends DataFile {
                 Object ob = person.get(count);
                 tempValue = tokenArray[count];
                 if (!(ob instanceof ArrayList)) {
-                    tempJObject.put(ob.toString(), tempValue);
+                    tempPersonCode = ob.toString();
+                    tempJObject.put(tempPersonCode, tempValue);
                 } else {
                     JSONObject aTempJSONObject = new JSONObject();
                     if(ob == emailAddresses) {
@@ -55,6 +59,7 @@ public class PersonDataFile extends DataFile {
                     }
                 }
             }
+            jHandler.personCodeMap.put(tempPersonCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;
