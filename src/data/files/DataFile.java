@@ -4,12 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 
 import data.controllers.JSONController;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 //extends file so DataFile object has all functionalities of a file
 abstract class DataFile extends File{
 
     protected String finalJSONString;
+    protected JSONArray finalJSON;
     protected JSONController jHandler = new JSONController();
     protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
     protected String JSONName;

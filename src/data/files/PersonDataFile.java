@@ -23,12 +23,12 @@ public class PersonDataFile extends DataFile {
     public PersonDataFile (String filePath) throws IOException {
         super(filePath);
         this.JSONName = "persons";
-        this.finalJSONString = this.convertToJSON(fileArray);
+        this.finalJSON = this.convertToJSON(fileArray);
+        this.finalJSONString = this.finalJSON.toString(2);
         this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
-        System.out.println(this.outerJSONObject);
     }
 
-    public String convertToJSON(ArrayList<String[]> fileArray) {
+    public JSONArray convertToJSON(ArrayList<String[]> fileArray) {
         //loop over lines of file
         for(int counter = 1;counter < fileArray.size();counter++) {
             tokenArray = fileArray.get(counter);
@@ -57,7 +57,7 @@ public class PersonDataFile extends DataFile {
             }
             JSONArrayList.put(tempJObject);
         }
-        return JSONArrayList.toString(2);
+        return JSONArrayList;
     }
 
     public String getOuterJSONObject() {
