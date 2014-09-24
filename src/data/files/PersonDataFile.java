@@ -7,8 +7,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PersonDataFile extends DataFile {
 
@@ -43,8 +41,8 @@ public class PersonDataFile extends DataFile {
                 Object ob = person.get(count);
                 tempValue = tokenArray[count];
                 if (!(ob instanceof ArrayList)) {
-                    tempPersonCode = ob.toString();
-                    tempJObject.put(tempPersonCode, tempValue);
+                    tempPersonCode = tempValue;
+                    tempJObject.put(ob.toString(), tempValue);
                 } else {
                     JSONObject aTempJSONObject = new JSONObject();
                     if(ob == emailAddresses) {
@@ -60,7 +58,7 @@ public class PersonDataFile extends DataFile {
                     }
                 }
             }
-            JSONController.personCodeMap.put(tempPersonCode, tempJObject);
+            jHandler.addToPersonCodeMap(tempPersonCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;
