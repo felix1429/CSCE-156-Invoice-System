@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PersonDataFile extends DataFile {
 
@@ -14,7 +15,6 @@ public class PersonDataFile extends DataFile {
     protected String outerJSONObject;
     protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
-    protected JSONController jHandler = new JSONController();
     private String tempPersonCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<Object> person = dfc.getPersonList();
@@ -32,7 +32,7 @@ public class PersonDataFile extends DataFile {
 
     private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
         //loop over lines of file
-        for(int counter = 1;counter < fileArray.size();counter++) {
+        for(int counter = 1;counter <= numberOfRecords;counter++) {
             tokenArray = fileArray.get(counter);
             //creates new object for each entry
             JSONObject tempJObject = new JSONObject();
@@ -58,7 +58,7 @@ public class PersonDataFile extends DataFile {
                     }
                 }
             }
-            jHandler.addToPersonCodeMap(tempPersonCode, tempJObject);
+            JSONController.addToPersonCodeMap(tempPersonCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;

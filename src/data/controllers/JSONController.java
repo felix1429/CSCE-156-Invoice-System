@@ -25,11 +25,11 @@ public class JSONController {
         return "{\n\"" + JSONName + "\": " + finalString + "}";
     }
 
-    public JSONObject getPersonDataFromCode(String code) {
+    public static JSONObject getPersonDataFromCode(String code) {
         return personCodeMap.get(code);
     }
 
-    public void addToPersonCodeMap(String key, JSONObject value) {
+    public static void addToPersonCodeMap(String key, JSONObject value) {
         personCodeMap.put(key, value);
     }
 }

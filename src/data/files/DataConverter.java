@@ -24,16 +24,18 @@ public class DataConverter {
     //iterates over files in input dir
     public void iterateOverInputFiles() throws IOException {
         for(File inputFile : listOfInputFiles) {
-            if(inputFile.getName().equals("Customers.dat")) {
-                CustomerDataFile cData = new CustomerDataFile(inputFile.getAbsolutePath());
-            }else if(inputFile.getName().equals("Persons.dat")) {
+            if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
 //                System.out.println(pData.getOuterJSONObject());
-            }else if(inputFile.getName().equals("Products.dat")) {
-                ProductDataFile prData = new ProductDataFile(inputFile.getAbsolutePath());
-            }else {
-                throw new FileNotFoundException("There was an error in retrieving the file\n"
-                + inputFile.getName() + " was not found in the input directory");
+                for (File inputFile1 : listOfInputFiles) {
+                    if (inputFile1.getName().equals("Customers.dat")) {
+                        CustomerDataFile cData = new CustomerDataFile(inputFile1.getAbsolutePath());
+//                        System.out.println(cData.getOuterJSONObject());
+                    } else if (inputFile1.getName().equals("Products.dat")) {
+                        ProductDataFile prData = new ProductDataFile(inputFile1.getAbsolutePath());
+
+                    }
+                }
             }
         }
     }
