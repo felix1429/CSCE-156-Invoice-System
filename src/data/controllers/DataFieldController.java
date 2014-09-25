@@ -77,6 +77,4 @@ public class DataFieldController {
         nameArray[1] = new String[] {"firstName", values[1].replaceAll(" ","")};
         return nameArray;
     }
-
-    //TODO: add persons to (personCode, person) map so they can be retrieved by other classes
 }
