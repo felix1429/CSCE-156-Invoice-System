@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class DataFieldController {
 
-    private JSONObject tempJSONObject;
     private ArrayList<String> emailAddresses = new ArrayList<String>();
     private ArrayList<String> address = new ArrayList<String>() {
         {

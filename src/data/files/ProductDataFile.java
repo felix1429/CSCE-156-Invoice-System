@@ -11,10 +11,8 @@ import java.util.ArrayList;
 public class ProductDataFile extends DataFile {
 
     protected JSONArray finalJSON;
-    protected String tempValue;
     protected JSONArray JSONArrayList = new JSONArray();
     private DataFieldController dfc = new DataFieldController();
-    private ArrayList<String> name = dfc.getNameList();
     private ArrayList<Object> person = dfc.getPersonList();
     private Object theArray[];
 
@@ -50,7 +48,6 @@ public class ProductDataFile extends DataFile {
             tokenArray = fileArray.get(counter);
             JSONObject tempJObject = new JSONObject();
             tempJObject.put(keyArray[0].toString(), tokenArray[0]);
-//            JSONArrayList.put(tempJObject);
             String type = tokenArray[1];
             if(type.equals("E")) {
                 theArray = equipmentArray;
