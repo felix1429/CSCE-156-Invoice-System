@@ -33,7 +33,7 @@ public class DataConverter {
                         writeToFile(cData);
                     } else if (inputFile1.getName().equals("Products.dat")) {
                         ProductDataFile prData = new ProductDataFile(inputFile1.getAbsolutePath());
-
+                        writeToFile(prData);
                     }
                 }
             }

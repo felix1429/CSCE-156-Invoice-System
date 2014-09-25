@@ -1,0 +1,79 @@
+{
+"products": [
+  {
+    "code": "b29e",
+    "name": "Cinco MIDI Organizer",
+    "pricePerUnit": "2500.0"
+  },
+  {
+    "code": "ff23",
+    "name": "Cinco-Fone",
+    "pricePerUnit": "124.99"
+  },
+  {
+    "code": "fp12",
+    "name": "Internette Discs",
+    "pricePerUnit": "14.99"
+  },
+  {
+    "code": "1239",
+    "name": "Cinco Video Cube Playback System",
+    "pricePerUnit": "5000.00"
+  },
+  {
+    "serviceFee": "2000.00",
+    "code": "90fa",
+    "annualLiscenceFee": "12000.00",
+    "name": "Cinco Long Distance Service"
+  },
+  {
+    "code": "3289",
+    "consultant": {
+      "lastName": "Gekko",
+      "firstName": "Gordon",
+      "address": {
+        "zip": "10005-0012",
+        "country": "USA",
+        "city": "NewYork",
+        "street": "1 Wall Street",
+        "state": "NY"
+      },
+      "personCode": "aef1"
+    },
+    "name": "Cinco-Fone Training",
+    "hourlyFee": "25.00"
+  },
+  {
+    "code": "782g",
+    "consultant": {
+      "emails": [
+        "whartnell@doctors.com",
+        "dr@who.com"
+      ],
+      "lastName": "Hartnell",
+      "firstName": "William",
+      "address": {
+        "zip": "60613",
+        "country": "USA",
+        "city": "Chicago",
+        "street": "1060 West Addison Street",
+        "state": "IL"
+      },
+      "personCode": "321nd"
+    },
+    "name": "Server System Setup",
+    "hourlyFee": "150.00"
+  },
+  {
+    "serviceFee": "0.00",
+    "code": "3294",
+    "annualLiscenceFee": "35000.00",
+    "name": "Cloud SQL Hosting"
+  },
+  {
+    "serviceFee": "350.00",
+    "code": "3295",
+    "annualLiscenceFee": "1200.00",
+    "name": "Domain registration"
+  }
+]}

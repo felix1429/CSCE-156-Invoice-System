@@ -32,7 +32,7 @@ public class PersonDataFile extends DataFile {
 
     private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
         //loop over lines of file
-        for(int counter = 1;counter <= numberOfRecords;counter++) {
+        for(int counter = 1;counter <= this.numberOfRecords;counter++) {
             tokenArray = fileArray.get(counter);
             //creates new object for each entry
             JSONObject tempJObject = new JSONObject();

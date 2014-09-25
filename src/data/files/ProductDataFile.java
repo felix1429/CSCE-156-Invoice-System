@@ -1,31 +1,38 @@
 package data.files;
 
 import data.controllers.DataFieldController;
+import data.controllers.JSONController;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProductDataFile extends DataFile {
 
+    protected JSONArray finalJSON;
+    protected String tempValue;
+    protected JSONArray JSONArrayList = new JSONArray();
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<String> name = dfc.getNameList();
     private ArrayList<Object> person = dfc.getPersonList();
+    private Object theArray[];
 
     protected Object keyArray[] = {
             "code",
-            "productType"
+            "productType",
     };
     private Object equipmentArray [] = {
-            name,
+            "name",
             "pricePerUnit"
     };
     private Object liscenceArray [] = {
-            name,
+            "name",
             "serviceFee",
             "annualLiscenceFee"
     };
     private Object consultationArray [] = {
-            name,
+            "name",
             person,
             "hourlyFee"
     };
@@ -33,10 +40,39 @@ public class ProductDataFile extends DataFile {
     public ProductDataFile(String filePath) throws IOException {
         super(filePath);
         this.JSONName = "products";
+        this.finalJSON = this.convertToJSON(fileArray);
+        this.finalJSONString = this.finalJSON.toString(2);
+        this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
     }
 
-    private String getPersonFromPersonCode(String personCode) {
-        //TODO: flesh out method
-        return "";
+    private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
+        for (int counter = 1; counter <= this.numberOfRecords; counter++) {
+            tokenArray = fileArray.get(counter);
+            JSONObject tempJObject = new JSONObject();
+            tempJObject.put(keyArray[0].toString(), tokenArray[0]);
+//            JSONArrayList.put(tempJObject);
+            String type = tokenArray[1];
+            if(type.equals("E")) {
+                theArray = equipmentArray;
+            }else if(type.equals("L")) {
+                theArray = liscenceArray;
+            }else if(type.equals("C")) {
+                theArray = consultationArray;
+            }
+            for(int count = 2; count < tokenArray.length; count ++) {
+                Object ob = theArray[count - 2];
+                if(ob != person) {
+                    tempJObject.put(ob.toString(), tokenArray[count]);
+                }else {
+                    tempJObject.put("consultant", JSONController.getPersonDataFromCode(tokenArray[count]));
+                }
+            }
+            JSONArrayList.put(tempJObject);
+        }
+        return JSONArrayList;
+    }
+
+    public String getOuterJSONObject() {
+        return this.outerJSONObject;
     }
 }
