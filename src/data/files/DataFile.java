@@ -11,7 +11,6 @@ import org.json.JSONObject;
 abstract class DataFile extends File{
 
     protected String finalJSONString;
-    protected JSONArray finalJSON;
     protected JSONController jHandler = new JSONController();
     protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
     protected String JSONName;
@@ -38,5 +37,9 @@ abstract class DataFile extends File{
             fileArray.add(tokenArray);
         }
         return fileArray;
+    }
+
+    public String getOuterJSONObject() {
+        return this.outerJSONObject;
     }
 }

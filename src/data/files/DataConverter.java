@@ -1,8 +1,6 @@
 package data.files;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 public class DataConverter {
 
@@ -15,6 +13,8 @@ public class DataConverter {
     //list of files in input dir
     File[] listOfInputFiles = inputFileRelativePath.listFiles();
 
+    File[] listOfOutputFiles = outputFileRelativePath.listFiles();
+
 
     public static void main(String args[]) throws IOException {
         DataConverter dc = new DataConverter();
@@ -26,16 +26,28 @@ public class DataConverter {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
-//                System.out.println(pData.getOuterJSONObject());
+                writeToFile(pData);
                 for (File inputFile1 : listOfInputFiles) {
                     if (inputFile1.getName().equals("Customers.dat")) {
                         CustomerDataFile cData = new CustomerDataFile(inputFile1.getAbsolutePath());
-//                        System.out.println(cData.getOuterJSONObject());
+                        writeToFile(cData);
                     } else if (inputFile1.getName().equals("Products.dat")) {
                         ProductDataFile prData = new ProductDataFile(inputFile1.getAbsolutePath());
 
                     }
                 }
+            }
+        }
+    }
+
+    public void writeToFile(DataFile theFile) throws IOException {
+        for(File outputFile : listOfOutputFiles) {
+            String inputName = theFile.getName();
+            String outputName = outputFile.getName();
+            if(inputName.substring(0, inputName.length() - 4).equals(outputName.substring(0, outputName.length() - 5))) {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile));
+                bw.write(theFile.getOuterJSONObject());
+                bw.close();
             }
         }
     }
