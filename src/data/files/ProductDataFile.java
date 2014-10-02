@@ -61,7 +61,7 @@ public class ProductDataFile extends DataFile {
                 if(ob != person) {
                     tempJObject.put(ob.toString(), tokenArray[count]);
                 }else {
-                    tempJObject.put("consultant", JSONController.getPersonDataFromCode(tokenArray[count]));
+                    tempJObject.put("consultant", DataFieldController.getPersonDataFromCode(tokenArray[count]));
                 }
             }
             JSONArrayList.put(tempJObject);

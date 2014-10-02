@@ -40,7 +40,7 @@ public class CustomerDataFile extends DataFile {
                 JSONObject aTempJSONObject = new JSONObject();
                 if (!(ob instanceof ArrayList)) {
                     if (ob.toString().equals("primaryContact")) {
-                        tempJObject.put(ob.toString(), JSONController.getPersonDataFromCode(tempValue));
+                        tempJObject.put(ob.toString(), DataFieldController.getPersonDataFromCode(tempValue));
                     } else {
                         tempJObject.put(ob.toString(), tempValue);
                     }

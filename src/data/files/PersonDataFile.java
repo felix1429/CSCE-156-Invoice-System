@@ -58,7 +58,7 @@ public class PersonDataFile extends DataFile {
                     }
                 }
             }
-            JSONController.addToPersonCodeMap(tempPersonCode, tempJObject);
+            DataFieldController.addToPersonCodeMap(tempPersonCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;

@@ -3,9 +3,13 @@ package data.controllers;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DataFieldController {
 
+
+    private static HashMap<String, JSONObject> personCodeMap = new HashMap<String, JSONObject>();
+    private static HashMap<String, JSONObject> customerCodeMap = new HashMap<String, JSONObject>();
     private ArrayList<String> emailAddresses = new ArrayList<String>();
     private ArrayList<String> address = new ArrayList<String>() {
         {
@@ -76,5 +80,21 @@ public class DataFieldController {
         nameArray[0] = new String[] {"lastName", values[0]};
         nameArray[1] = new String[] {"firstName", values[1].replaceAll(" ","")};
         return nameArray;
+    }
+
+    public static JSONObject getPersonDataFromCode(String code) {
+        return personCodeMap.get(code);
+    }
+
+    public static void addToPersonCodeMap(String key, JSONObject value) {
+        personCodeMap.put(key, value);
+    }
+
+    public static JSONObject getCustomerDataFromCode(String code) {
+        return customerCodeMap.get(code);
+    }
+
+    public static void addToCustomerCodeMap(String key, JSONObject value) {
+        customerCodeMap.put(key, value);
     }
 }

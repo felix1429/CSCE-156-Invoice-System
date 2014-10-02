@@ -28,7 +28,7 @@ public class InvoiceDataFile extends DataFile{
     private ArrayList<Object> person = dfc.getPersonList();
     private ArrayList<Object> products = new ArrayList<Object>();
     protected Object keyArray[] = {
-            "invoiceCode",
+            "Invoice",
             person,
             person,
             products
@@ -52,5 +52,12 @@ public class InvoiceDataFile extends DataFile{
 
     }
 
-//    private void convertTo
+    private void convertToOutputString(ArrayList<String[]> fileArray) {
+        for(int counter = 1; counter < this.numberOfRecords; counter++) {
+            tokenArray = fileArray.get(counter);
+
+        }
+    }
+
+    private String getInvoice
 }
