@@ -12,6 +12,7 @@ public class CustomerDataFile extends DataFile {
     protected String tempValue;
     protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
+    private String tempCustomerCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<String> address = dfc.getAddressList();
     protected Object keyArray[] = {
@@ -37,6 +38,9 @@ public class CustomerDataFile extends DataFile {
             for (int count = 0; count < tokenArray.length; count++) {
                 Object ob = keyArray[count];
                 tempValue = tokenArray[count];
+                if(count == 0) {
+                    tempCustomerCode = tempValue;
+                }
                 JSONObject aTempJSONObject = new JSONObject();
                 if (!(ob instanceof ArrayList)) {
                     if (ob.toString().equals("primaryContact")) {
@@ -48,6 +52,7 @@ public class CustomerDataFile extends DataFile {
                     tempJObject.put("address", dfc.parseAddress(tempValue, aTempJSONObject));
                 }
             }
+            DataFieldController.addToCustomerCodeMap(tempCustomerCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;

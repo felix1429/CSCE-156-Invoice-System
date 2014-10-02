@@ -59,5 +59,5 @@ public class InvoiceDataFile extends DataFile{
         }
     }
 
-    private String getInvoice
+//    private String getInvoice
 }
