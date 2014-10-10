@@ -62,7 +62,7 @@ public class InvoiceDataFile extends DataFile{
     }
 
     private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
-        for(int counter = 1; counter < this.numberOfRecords; counter++) {
+        for(int counter = 1; counter <= this.numberOfRecords; counter++) {
             tokenArray = fileArray.get(counter);
             JSONObject tempJObject = new JSONObject();
             for(int count = 0; count < 4; count++) {
