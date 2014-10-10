@@ -29,6 +29,10 @@ public class InvoiceDataFile extends DataFile{
     private InvoiceController ic = new InvoiceController();
     private ArrayList<Object> person = dfc.getPersonList();
     private ArrayList<Object> products = new ArrayList<Object>();
+    private JSONObject tempProduct;
+    private Object theArray[];
+    private String productType;
+    private String productArray[];
     protected String tempValue;
     protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
@@ -61,7 +65,7 @@ public class InvoiceDataFile extends DataFile{
         for(int counter = 1; counter < this.numberOfRecords; counter++) {
             tokenArray = fileArray.get(counter);
             JSONObject tempJObject = new JSONObject();
-            for(int count = 0; count < tokenArray.length; count++) {
+            for(int count = 0; count < 4; count++) {
                 Object ob = keyArray[count];
                 tempValue = tokenArray[count];
                 if(count == 0) {
@@ -71,11 +75,22 @@ public class InvoiceDataFile extends DataFile{
                 }else if(count == 2) {
                     tempJObject.put("salesperson", DataFieldController.getPersonDataFromCode(tempValue));
                 }else if(count == 3) {
-                    
+                    productArray = ic.splitToTokens(tempValue);
+                    for(int foo = 0; foo < productArray.length; foo ++) {
+                        tempValue = productArray[foo];
+                        tempProduct = DataFieldController.getProductDataFromCode(tempValue);
+                        productType = ic.getProductType(tempProduct);
+                        if (productType.equals("equipment")) {
+                            theArray = equipmentArray;
+                        } else if (productType.equals("liscnence")) {
+                            theArray = liscenceArray;
+                        } else if (productType.equals("consultation")) {
+                            theArray = consultationArray;
+                        }
+                        products.add(tempJObject);
+                    }
                 }
             }
         }
     }
-
-//    private String getInvoice
 }
