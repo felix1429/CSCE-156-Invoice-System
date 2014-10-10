@@ -38,7 +38,7 @@ public class InvoiceDataFile extends DataFile{
     protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
     protected Object keyArray[] = {
-            "Invoice",
+            "invoice",
             person,
             person,
             products
@@ -60,7 +60,7 @@ public class InvoiceDataFile extends DataFile{
     public InvoiceDataFile(String filePath) throws IOException {
         super(filePath);
         this.finalJSON = this.convertToJSON((fileArray));
-        this.finalJSONString = this.finalJSON.toString(2);
+        this.finalJSONString = this.finalJSON.toString(3);
         System.out.println(finalJSONString);
     }
 
@@ -90,14 +90,14 @@ public class InvoiceDataFile extends DataFile{
                             productType = ic.getProductType(tempProduct);
                             if (productType.equals("equipment")) {
                                 theArray = equipmentArray;
-                                tempJObject.put(theArray[0].toString(), productFields[0]);
+                                tempJObject.put(theArray[0].toString(), productFields[1]);
                             } else if (productType.equals("license")) {
                                 theArray = licenseArray;
                                 tempJObject.put(theArray[0].toString(), productFields[1]);
                                 tempJObject.put(theArray[1].toString(), productFields[2]);
                             } else if (productType.equals("consultation")) {
                                 theArray = consultationArray;
-                                tempJObject.put(theArray[0].toString(), productFields[0]);
+                                tempJObject.put(theArray[0].toString(), productFields[1]);
                             }
                             tempJObject.put(productType, tempProduct);
                             products.add(tempJObject);
