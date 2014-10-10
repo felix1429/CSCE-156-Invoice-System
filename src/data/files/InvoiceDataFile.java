@@ -59,10 +59,12 @@ public class InvoiceDataFile extends DataFile{
 
     public InvoiceDataFile(String filePath) throws IOException {
         super(filePath);
-
+        this.finalJSON = this.convertToJSON((fileArray));
+        this.finalJSONString = this.finalJSON.toString(2);
+        System.out.println(finalJSONString);
     }
 
-    private void convertToOutputString(ArrayList<String[]> fileArray) {
+    private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
         for(int counter = 1; counter < this.numberOfRecords; counter++) {
             tokenArray = fileArray.get(counter);
             JSONObject tempJObject = new JSONObject();
@@ -108,5 +110,6 @@ public class InvoiceDataFile extends DataFile{
             }
             JSONArrayList.put(tempJObject);
         }
+        return JSONArrayList;
     }
 }
