@@ -194,10 +194,17 @@ public class InvoiceController {
         return String.valueOf(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
     }
 
-    public String generateHeader() {
+    public String generateDetailsHeader() {
         String output = "";
         output += addLine("Individual Invoice Detail Reports");
         output += addLine(generateRepeatString("=", 50));
+        return output;
+    }
+
+    public String generateSummaryHeader() {
+        String output = "";
+        output += addLine("Executive Summary Report");
+        output += addLine(generateRepeatString("=", 25));
         return output;
     }
 
