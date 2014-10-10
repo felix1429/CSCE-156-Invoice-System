@@ -10,14 +10,11 @@ import java.util.ArrayList;
 
 public class ProductDataFile extends DataFile {
 
-    protected JSONArray finalJSON;
-    protected JSONArray JSONArrayList = new JSONArray();
     private String tempProductCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<Object> person = dfc.getPersonList();
     private Object theArray[];
-
-    protected Object keyArray[] = {
+    private Object keyArray[] = {
             "code",
             "productType",
     };
@@ -70,9 +67,5 @@ public class ProductDataFile extends DataFile {
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;
-    }
-
-    public String getOuterJSONObject() {
-        return this.outerJSONObject;
     }
 }

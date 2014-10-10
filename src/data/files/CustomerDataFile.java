@@ -9,13 +9,10 @@ import java.util.ArrayList;
 
 public class CustomerDataFile extends DataFile {
 
-    protected String tempValue;
-    protected JSONArray finalJSON;
-    protected JSONArray JSONArrayList = new JSONArray();
     private String tempCustomerCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<String> address = dfc.getAddressList();
-    protected Object keyArray[] = {
+    private Object keyArray[] = {
             "customerCode",
             "type",
             "primaryContact",
@@ -56,9 +53,5 @@ public class CustomerDataFile extends DataFile {
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;
-    }
-
-    public String getOuterJSONObject() {
-        return this.outerJSONObject;
     }
 }

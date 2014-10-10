@@ -11,10 +11,6 @@ import java.util.HashMap;
 
 public class PersonDataFile extends DataFile {
 
-    protected String tempValue;
-    protected String outerJSONObject;
-    protected JSONArray finalJSON;
-    protected JSONArray JSONArrayList = new JSONArray();
     private String tempPersonCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<Object> person = dfc.getPersonList();
@@ -62,9 +58,5 @@ public class PersonDataFile extends DataFile {
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;
-    }
-
-    public String getOuterJSONObject() {
-        return this.outerJSONObject;
     }
 }

@@ -68,6 +68,7 @@ public class DataConverter {
                 for(File blah : listOfInputFiles) {
                     if(blah.getName().equals("Invoices.dat")) {
                         InvoiceDataFile iData = new InvoiceDataFile(blah.getAbsolutePath());
+                        System.out.println(iData.getOuterJSONObject());
                     }
                 }
             }

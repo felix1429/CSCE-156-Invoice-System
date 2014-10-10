@@ -11,13 +11,16 @@ import org.json.JSONObject;
 abstract class DataFile extends File{
 
     protected String finalJSONString;
+    protected JSONArray finalJSON;
     protected JSONController jHandler = new JSONController();
     protected ArrayList<String[]> fileArray = new ArrayList<String[]>();
     protected String JSONName;
+    protected JSONArray JSONArrayList = new JSONArray();
     protected String outerJSONObject;
     //holds json tokens from file lines
     protected String tokenArray[];
     protected String filePath;
+    protected String tempValue;
     protected int numberOfRecords;
 
     //constructor
@@ -39,7 +42,7 @@ abstract class DataFile extends File{
         return fileArray;
     }
 
-    public String getOuterJSONObject() {
+    protected String getOuterJSONObject() {
         return this.outerJSONObject;
     }
 }

@@ -2,10 +2,8 @@ package data.files;
 
 import data.controllers.DataFieldController;
 import data.controllers.InvoiceController;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.*;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,10 +33,7 @@ public class InvoiceDataFile extends DataFile{
     private String productArray[];
     private String productFields[];
     private String productType;
-    protected String tempValue;
-    protected JSONArray finalJSON;
-    protected JSONArray JSONArrayList = new JSONArray();
-    protected Object keyArray[] = {
+    private Object keyArray[] = {
             "invoice",
             person,
             person,
@@ -60,9 +55,10 @@ public class InvoiceDataFile extends DataFile{
 
     public InvoiceDataFile(String filePath) throws IOException {
         super(filePath);
+        this.JSONName = "invoices";
         this.finalJSON = this.convertToJSON((fileArray));
         this.finalJSONString = this.finalJSON.toString(3);
-        System.out.println(finalJSONString);
+        this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
     }
 
     private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
