@@ -62,7 +62,7 @@ public class InvoiceController {
     }
 
     public double roundToTwo(double in) {
-        return (double)Math.round(in * 100) / 100;
+        return Math.round(in * 100.0) / 100.0;
     }
 
     public String getProductInfo(JSONObject in) throws ParseException {
@@ -96,7 +96,7 @@ public class InvoiceController {
         String output = "";
         if (in.has("billableHours")) {
             fee = 150;
-            total = (in.getInt("billableHours") * in.getDouble("hourlyFee")) + fee;
+            total = (in.getDouble("billableHours") * in.getDouble("hourlyFee")) + fee;
         } else if (in.has("annualLicenseFee")) {
             fee = in.getDouble("serviceFee");
             total = (Double.parseDouble(getDaysBetweenDates((String) in.get("beginDate"), (String) in.get("endDate"))) / 365) * in.getDouble("annualLicenseFee") + fee;
@@ -104,10 +104,18 @@ public class InvoiceController {
             total = in.getDouble("numberOfUnits") * in.getDouble("pricePerUnit");
         }
         total = roundToTwo(total);
+        String totalStr = String.valueOf(total);
+        if(totalStr.substring((totalStr.length() - 2)).contains(".")) {
+            totalStr += "0";
+        }
         fee = roundToTwo(fee);
-        output += "$" + generateRepeatString(" ", 9 - String.valueOf(fee).length())
-                + fee + " $" + generateRepeatString(" ", 9 - String.valueOf(total).length())
-                + total;
+        String feeStr = String.valueOf(fee);
+        if(feeStr.substring((feeStr.length() - 2)).contains(".")) {
+            feeStr += "0";
+        }
+        output += "$" + generateRepeatString(" ", 10 - feeStr.length())
+                + feeStr + "  $" + generateRepeatString(" ", 10 - totalStr.length())
+                + totalStr;
         return output;
     }
 

@@ -36,7 +36,7 @@ public class InvoiceOutputFile {
             output += ic.addLine(customerProductDivide);
             output += ic.addLine("Code" + ic.generateRepeatString(" ", 6) + "Item"
                     + ic.generateRepeatString(" ", 73) + "Fees"
-                    + ic.generateRepeatString(" ", 7) + "Total");
+                    + ic.generateRepeatString(" ", 8) + "Total");
             output += ic.addLine(ic.generateProductLines(tempJObject));
 
             finalOutput = output;
