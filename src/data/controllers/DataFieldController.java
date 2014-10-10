@@ -68,7 +68,7 @@ public class DataFieldController {
         for(int i = 0; i < values.length; i++) {
             output = values[i];
             if(!address.get(i).equals("street")) {
-                output = output.replaceAll(" ", "");
+                output = output.trim();
             }
             temp.put(address.get(i), output);
         }
@@ -79,7 +79,7 @@ public class DataFieldController {
         String values[] = splitToTokens(input);
         String[][] nameArray = new String[2][2];
         nameArray[0] = new String[] {"lastName", values[0]};
-        nameArray[1] = new String[] {"firstName", values[1].replaceAll(" ","")};
+        nameArray[1] = new String[] {"firstName", values[1].trim()};
         return nameArray;
     }
 

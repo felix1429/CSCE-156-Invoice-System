@@ -18,8 +18,12 @@ public class InvoiceController {
         }
     }
 
-    public String[] splitToTokens(String input) {
+    public String[] splitProductListToTokens(String input) {
         return input.split(",");
+    }
+
+    public String[] splitProductDataToTokens(String input) {
+        return input.split(":");
     }
 
 }

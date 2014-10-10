@@ -31,8 +31,9 @@ public class InvoiceDataFile extends DataFile{
     private ArrayList<Object> products = new ArrayList<Object>();
     private JSONObject tempProduct;
     private Object theArray[];
-    private String productType;
     private String productArray[];
+    private String productFields[];
+    private String productType;
     protected String tempValue;
     protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
@@ -44,16 +45,16 @@ public class InvoiceDataFile extends DataFile{
     };
 
     private Object equipmentArray[] = {
-            "numberOfUnits"
+            "numberOfUnits",
     };
 
     private Object consultationArray[] = {
-            "billableHours"
+            "billableHours",
     };
 
     private Object licenseArray[] = {
             "beginDate",
-            "endDate"
+            "endDate",
     };
 
     public InvoiceDataFile(String filePath) throws IOException {
@@ -68,29 +69,44 @@ public class InvoiceDataFile extends DataFile{
             for(int count = 0; count < 4; count++) {
                 Object ob = keyArray[count];
                 tempValue = tokenArray[count];
-                if(count == 0) {
-                    tempJObject.put(ob.toString(), tempValue);
-                }else if(count == 1) {
-                    tempJObject.put("customer", DataFieldController.getCustomerDataFromCode(tempValue));
-                }else if(count == 2) {
-                    tempJObject.put("salesperson", DataFieldController.getPersonDataFromCode(tempValue));
-                }else if(count == 3) {
-                    productArray = ic.splitToTokens(tempValue);
-                    for(int foo = 0; foo < productArray.length; foo ++) {
-                        tempValue = productArray[foo];
-                        tempProduct = DataFieldController.getProductDataFromCode(tempValue);
-                        productType = ic.getProductType(tempProduct);
-                        if (productType.equals("equipment")) {
-                            theArray = equipmentArray;
-                        } else if (productType.equals("license")) {
-                            theArray = licenseArray;
-                        } else if (productType.equals("consultation")) {
-                            theArray = consultationArray;
+                switch (count) {
+                    case 0:
+                        tempJObject.put(ob.toString(), tempValue);
+                        break;
+                    case 1:
+                        tempJObject.put("customer", DataFieldController.getCustomerDataFromCode(tempValue));
+                        break;
+                    case 2:
+                        tempJObject.put("salesperson", DataFieldController.getPersonDataFromCode(tempValue));
+                        break;
+                    case 3:
+                        productArray = ic.splitProductListToTokens(tempValue);
+                        for(int foo = 0; foo < productArray.length; foo ++) {
+                            tempValue = productArray[foo];
+                            tempProduct = DataFieldController.getProductDataFromCode(tempValue);
+                            productFields = ic.splitProductDataToTokens(tempValue);
+                            productType = ic.getProductType(tempProduct);
+                            if (productType.equals("equipment")) {
+                                theArray = equipmentArray;
+                                tempJObject.put(theArray[0].toString(), productFields[0]);
+                            } else if (productType.equals("license")) {
+                                theArray = licenseArray;
+                                tempJObject.put(theArray[0].toString(), productFields[0]);
+                                tempJObject.put(theArray[1].toString(), productFields[1]);
+                            } else if (productType.equals("consultation")) {
+                                theArray = consultationArray;
+                                tempJObject.put(theArray[0].toString(), productFields[0]);
+                            }
+                            tempJObject.put(productType, tempProduct);
+                            products.add(tempJObject);
                         }
-                        products.add(tempJObject);
-                    }
+                        break;
+                    default:
+                        System.out.println("something went wrong");
+                        break;
                 }
             }
+            JSONArrayList.put(tempJObject);
         }
     }
 }
