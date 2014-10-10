@@ -3,6 +3,8 @@ package data.files;
 import data.controllers.InvoiceController;
 import org.json.*;
 
+import java.text.ParseException;
+
 public class InvoiceOutputFile {
 
     private JSONArray input;
@@ -12,12 +14,12 @@ public class InvoiceOutputFile {
     private String customerProductDivide = ic.generateRepeatString("-", 43);
     private int rowLength = 103;
     private int moneyLength = 23;
-    public InvoiceOutputFile(JSONArray input) {
+    public InvoiceOutputFile(JSONArray input) throws ParseException {
         this.input = input;
-        System.out.println(generateInvoice());
+        generateInvoice();
     }
 
-    public String generateInvoice() {
+    public String generateInvoice() throws ParseException {
         for(int count = 0; count < input.length(); count++) {
             String output = "";
             JSONObject tempJObject = (JSONObject)input.get(count);
@@ -35,8 +37,10 @@ public class InvoiceOutputFile {
             output += ic.addLine("Code" + ic.generateRepeatString(" ", 6) + "Item"
                     + ic.generateRepeatString(" ", 73) + "Fees"
                     + ic.generateRepeatString(" ", 7) + "Total");
+            output += ic.addLine(ic.generateProductLines(tempJObject));
 
             finalOutput = output;
+            System.out.println(finalOutput);
         }
         return finalOutput;
     }

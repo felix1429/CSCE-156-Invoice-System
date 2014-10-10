@@ -1,10 +1,11 @@
 package data.files;
 
 import java.io.*;
+import java.text.ParseException;
 
 public class DataConverter {
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, ParseException {
         DataConverter dc = new DataConverter();
         dc.iterateOverInputFiles();
     }
@@ -48,7 +49,7 @@ public class DataConverter {
     File[] listOfOutputFiles = outputFileRelativePath.listFiles();
 
 
-    public void iterateOverInputFiles() throws IOException {
+    public void iterateOverInputFiles() throws IOException, ParseException {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());

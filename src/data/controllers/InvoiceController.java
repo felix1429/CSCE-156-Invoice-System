@@ -61,6 +61,10 @@ public class InvoiceController {
         return new String(new char[number]).replace("\0", in);
     }
 
+    public double roundToTwo(double in) {
+        return (double)Math.round(in * 100) / 100;
+    }
+
     public String getProductInfo(JSONObject in) throws ParseException {
         String output = "";
         if(in.has("numberOfUnits")) {
@@ -86,7 +90,26 @@ public class InvoiceController {
         }
     }
 
-    public String getMoneyInfo
+    public String getMoneyInfo(JSONObject in, JSONObject customer) throws ParseException {
+        double fee = 0;
+        double total = 0;
+        String output = "";
+        if (in.has("billableHours")) {
+            fee = 150;
+            total = (in.getInt("billableHours") * in.getDouble("hourlyFee")) + fee;
+        } else if (in.has("annualLicenseFee")) {
+            fee = in.getDouble("serviceFee");
+            total = (Double.parseDouble(getDaysBetweenDates((String) in.get("beginDate"), (String) in.get("endDate"))) / 365) * in.getDouble("annualLicenseFee") + fee;
+        } else if (in.has("pricePerUnit")) {
+            total = in.getDouble("numberOfUnits") * in.getDouble("pricePerUnit");
+        }
+        total = roundToTwo(total);
+        fee = roundToTwo(fee);
+        output += "$" + generateRepeatString(" ", 9 - String.valueOf(fee).length())
+                + fee + " $" + generateRepeatString(" ", 9 - String.valueOf(total).length())
+                + total;
+        return output;
+    }
 
     public String getDaysBetweenDates(String startDate, String endDate) throws ParseException {
         SimpleDateFormat theFormat = new SimpleDateFormat("dd MM yyyy");
@@ -109,19 +132,21 @@ public class InvoiceController {
                 productList.add((JSONObject)in.get(key));
             }
         }
+        System.out.println(productList.size());
         return productList;
     }
 
-    public String generateProductLIne(JSONObject in, String code) throws ParseException {
+    public String generateProductLines(JSONObject in) throws ParseException {
+        String output = "";
+        String line = "";
         ArrayList<JSONObject> productList = getProductList(in);
-        ArrayList<String> productInfoList = new ArrayList<String>();
         for(JSONObject j : productList) {
-            String output = getProductInfo(j);
-            output +=
-            productInfoList.add(getProductInfo(j));
+            line += j.get("code") + generateRepeatString(" ", 6);
+            line += getProductInfo(j);
+            line += getMoneyInfo(j, in);
+            output += addLine(line);
+            line = "";
         }
-        output = code + generateRepeatString(" ", 6)
-                + ;
         return output;
     }
 }
