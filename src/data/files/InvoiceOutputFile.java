@@ -72,6 +72,10 @@ public class InvoiceOutputFile {
                 + ic.generateRepeatString(" ", 8) + "Fees" + ic.generateRepeatString(" ", 7)
                 + "Taxes" + ic.generateRepeatString(" ", 7) + "Total");
         finalSummaryOutput += output;
+        double endSubtotal = 0;
+        double endFees = 0;
+        double endTaxes = 0;
+        double endTotal = 0;
         for(int counter = 0; counter < input.length(); counter++) {
             output = "";
             InvoiceController.setTotalFees(0);
@@ -82,19 +86,34 @@ public class InvoiceOutputFile {
             output += ic.getNestedData(tempJObject, "customer", "name")
                     + ic.generateRepeatString(" ", 50 - ic.getNestedData(tempJObject, "customer", "name").length());
             output += ic.getNestedData(tempJObject, "salesperson", "lastName") + ", " + ic.getNestedData(tempJObject, "salesperson", "firstName")
-                    + ic.generateRepeatString(" ", 30 - (ic.getNestedData(tempJObject, "salesperson", "lastName") + " " + ic.getNestedData(tempJObject, "salesperson", "firstName")).length());
+                    + ic.generateRepeatString(" ", 29 - (ic.getNestedData(tempJObject, "salesperson", "lastName") + " " + ic.getNestedData(tempJObject, "salesperson", "firstName")).length());
             ic.generateProductLines(tempJObject);
-            output += "$" + ic.generateRepeatString(" ", 9 - String.valueOf(ic.putTwoZeros(InvoiceController.getTotalTotal())).length())
-                    + ic.putTwoZeros(InvoiceController.getTotalTotal());
-            output += " $" + ic.generateRepeatString(" ", 10 - String.valueOf(ic.putTwoZeros(InvoiceController.getTotalFees())).length())
-                    + ic.putTwoZeros(InvoiceController.getTotalFees());
-            output += " $" + ic.generateRepeatString(" ", 10 - String.valueOf(ic.putTwoZeros(ic.roundToTwo(InvoiceController.getTaxesOwed()))).length())
-                    + ic.putTwoZeros(ic.roundToTwo(InvoiceController.getTaxesOwed()));
-            output += ic.addLine(" $" + ic.generateRepeatString(" ", 10 - String.valueOf(ic.putTwoZeros(ic.roundToTwo(ic.getOverallTotal(tempJObject)))).length())
-                    + ic.putTwoZeros(ic.roundToTwo(ic.getOverallTotal(tempJObject))));
+            String subtotal = ic.putTwoZeros(InvoiceController.getTotalTotal());
+            output += "$" + ic.generateRepeatString(" ", 10 - subtotal.length())
+                    + subtotal;
+            String fees = ic.putTwoZeros(InvoiceController.getTotalFees());
+            output += " $" + ic.generateRepeatString(" ", 10 - fees.length())
+                    + fees;
+            String taxes = ic.putTwoZeros(ic.roundToTwo(InvoiceController.getTaxesOwed()));
+            output += " $" + ic.generateRepeatString(" ", 10 - taxes.length())
+                    + taxes;
+            String total = ic.putTwoZeros(ic.roundToTwo(ic.getOverallTotal(tempJObject)));
+            output += ic.addLine(" $" + ic.generateRepeatString(" ", 10 - total.length())
+                    + total);
             finalSummaryOutput += output;
+            endSubtotal += Double.parseDouble(subtotal);
+            endFees += Double.parseDouble(fees);
+            endTaxes += Double.parseDouble(taxes);
+            endTotal += Double.parseDouble(total);
         }
         finalSummaryOutput += ic.addLine(ic.generateRepeatString("=", 137));
+        finalSummaryOutput += "TOTALS" + ic.generateRepeatString(" ", 84) + "$ " + ic.putTwoZeros(endSubtotal);
+        finalSummaryOutput += " $" + ic.generateRepeatString(" ", 10 - (ic.putTwoZeros(endFees).length()))
+                + ic.putTwoZeros(endFees);
+        finalSummaryOutput += " $" + ic.generateRepeatString(" ", 10 - (ic.putTwoZeros(endTaxes).length()))
+                + ic.putTwoZeros(endTaxes);
+        finalSummaryOutput += " $" + ic.generateRepeatString(" ", 10 - (ic.putTwoZeros(endTotal).length()))
+                + ic.putTwoZeros(endTotal);
         finalSummaryOutput += "\n\n\n\n";
         return finalSummaryOutput;
     }
