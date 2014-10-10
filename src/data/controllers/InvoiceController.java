@@ -9,7 +9,39 @@ import java.util.concurrent.TimeUnit;
 
 public class InvoiceController {
 
-    private String output = "";
+    private static double totalFees;
+    private static double totalTotal;
+    private static double taxesOwed;
+
+    public static void setTotalFees(double in) {
+        totalFees = in;
+    }
+
+    public static double getTotalFees() {
+        return totalFees;
+    }
+
+    public static void setTotalTotal(double in) {
+        totalTotal = in;
+    }
+
+    public static double getTotalTotal() {
+        return totalTotal;
+    }
+
+    public static double getTaxesOwed() {
+        return taxesOwed;
+    }
+
+    public static void setTaxesOwed(double in) {
+        taxesOwed = in;
+    }
+
+    public double getOverallTotal(JSONObject j) {
+        double total = 0;
+        total += InvoiceController.getTotalFees() + InvoiceController.getTotalTotal() + getComplianceFee(j) + getTaxesOwed();
+        return total;
+    }
 
     public String getProductType(JSONObject input) {
         if(input.has("pricePerUnit")) {
@@ -65,6 +97,14 @@ public class InvoiceController {
         return Math.round(in * 100.0) / 100.0;
     }
 
+    public String putTwoZeros(double in) {
+        String st = String.valueOf(in);
+        if(st.substring((st.length() - 2)).contains(".")) {
+            st += "0";
+        }
+        return st;
+    }
+
     public String getProductInfo(JSONObject in) throws ParseException {
         String output = "";
         if(in.has("numberOfUnits")) {
@@ -90,29 +130,52 @@ public class InvoiceController {
         }
     }
 
+    public double getComplianceFee(JSONObject in) {
+        double complianceFee = 0;
+        if(getNestedData(in, "customer", "type").equals("G")) {
+            complianceFee += 125;
+        }
+        return complianceFee;
+    }
+
     public String getMoneyInfo(JSONObject in, JSONObject customer) throws ParseException {
+        boolean taxed = getNestedData(customer, "customer", "type").equals("C");
         double fee = 0;
         double total = 0;
         String output = "";
         if (in.has("billableHours")) {
             fee = 150;
-            total = (in.getDouble("billableHours") * in.getDouble("hourlyFee")) + fee;
+            double amount = (in.getDouble("billableHours") * in.getDouble("hourlyFee")) + fee;
+            if(taxed) {
+                setTaxesOwed(getTaxesOwed() + ((amount - fee) * .0425));
+            }
+            total = amount;
         } else if (in.has("annualLicenseFee")) {
             fee = in.getDouble("serviceFee");
-            total = (Double.parseDouble(getDaysBetweenDates((String) in.get("beginDate"), (String) in.get("endDate"))) / 365) * in.getDouble("annualLicenseFee") + fee;
+            double amount = (Double.parseDouble(getDaysBetweenDates((String) in.get("beginDate"), (String) in.get("endDate"))) / 365) * in.getDouble("annualLicenseFee") + fee;
+            if(taxed) {
+                setTaxesOwed(getTaxesOwed() + ((amount - fee) * .0425));
+            }
+            total = amount;
         } else if (in.has("pricePerUnit")) {
-            total = in.getDouble("numberOfUnits") * in.getDouble("pricePerUnit");
+            double price = in.getDouble("numberOfUnits") * in.getDouble("pricePerUnit");
+            if(taxed) {
+                setTaxesOwed(getTaxesOwed() + (price * .07));
+            }
+            total = price;
         }
         total = roundToTwo(total);
         String totalStr = String.valueOf(total);
         if(totalStr.substring((totalStr.length() - 2)).contains(".")) {
             totalStr += "0";
         }
+        setTotalTotal(getTotalTotal() + total);
         fee = roundToTwo(fee);
         String feeStr = String.valueOf(fee);
         if(feeStr.substring((feeStr.length() - 2)).contains(".")) {
             feeStr += "0";
         }
+        setTotalFees(getTotalFees() + fee);
         output += "$" + generateRepeatString(" ", 10 - feeStr.length())
                 + feeStr + "  $" + generateRepeatString(" ", 10 - totalStr.length())
                 + totalStr;
@@ -129,6 +192,13 @@ public class InvoiceController {
         Date endingDate = theFormat.parse(end);
         long diff = endingDate.getTime() - beginDate.getTime();
         return String.valueOf(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+    }
+
+    public String generateHeader() {
+        String output = "";
+        output += addLine("Individual Invoice Detail Reports");
+        output += addLine(generateRepeatString("=", 50));
+        return output;
     }
 
     public ArrayList<JSONObject> getProductList(JSONObject in) {
