@@ -128,11 +128,10 @@ public class InvoiceController {
         Iterator<?> keys = in.keys();
         while(keys.hasNext()) {
             String key = (String)keys.next();
-            if(key.equals("license") || key.equals("consultation") || key.equals("equipment")) {
+            if(key.contains("license") || key.contains("consultation") || key.contains("equipment")) {
                 productList.add((JSONObject)in.get(key));
             }
         }
-        System.out.println(productList.size());
         return productList;
     }
 

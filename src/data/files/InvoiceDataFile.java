@@ -96,6 +96,9 @@ public class InvoiceDataFile extends DataFile{
                                 theArray = consultationArray;
                                 tempProduct.put(theArray[0].toString(), productFields[1]);
                             }
+                            if(tempJObject.has(productType)) {
+                                productType += "1";
+                            }
                             tempJObject.put(productType, tempProduct);
                             products.add(tempJObject);
                         }
