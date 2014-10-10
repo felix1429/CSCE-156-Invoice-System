@@ -28,7 +28,7 @@ public class ProductDataFile extends DataFile {
     private Object licenseArray [] = {
             "name",
             "serviceFee",
-            "annuallicenseFee"
+            "annualLicenseFee"
     };
     private Object consultationArray [] = {
             "name",

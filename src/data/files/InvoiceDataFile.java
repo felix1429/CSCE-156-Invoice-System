@@ -5,6 +5,7 @@ import data.controllers.InvoiceController;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -90,14 +91,14 @@ public class InvoiceDataFile extends DataFile{
                             productType = ic.getProductType(tempProduct);
                             if (productType.equals("equipment")) {
                                 theArray = equipmentArray;
-                                tempJObject.put(theArray[0].toString(), productFields[1]);
+                                tempProduct.put(theArray[0].toString(), productFields[1]);
                             } else if (productType.equals("license")) {
                                 theArray = licenseArray;
-                                tempJObject.put(theArray[0].toString(), productFields[1]);
-                                tempJObject.put(theArray[1].toString(), productFields[2]);
+                                tempProduct.put(theArray[0].toString(), productFields[1]);
+                                tempProduct.put(theArray[1].toString(), productFields[2]);
                             } else if (productType.equals("consultation")) {
                                 theArray = consultationArray;
-                                tempJObject.put(theArray[0].toString(), productFields[1]);
+                                tempProduct.put(theArray[0].toString(), productFields[1]);
                             }
                             tempJObject.put(productType, tempProduct);
                             products.add(tempJObject);
