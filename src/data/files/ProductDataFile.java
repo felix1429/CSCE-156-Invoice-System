@@ -25,10 +25,10 @@ public class ProductDataFile extends DataFile {
             "name",
             "pricePerUnit"
     };
-    private Object liscenceArray [] = {
+    private Object licenseArray [] = {
             "name",
             "serviceFee",
-            "annualLiscenceFee"
+            "annuallicenseFee"
     };
     private Object consultationArray [] = {
             "name",
@@ -54,7 +54,7 @@ public class ProductDataFile extends DataFile {
             if(type.equals("E")) {
                 theArray = equipmentArray;
             }else if(type.equals("L")) {
-                theArray = liscenceArray;
+                theArray = licenseArray;
             }else if(type.equals("C")) {
                 theArray = consultationArray;
             }

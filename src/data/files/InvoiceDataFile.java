@@ -51,7 +51,7 @@ public class InvoiceDataFile extends DataFile{
             "billableHours"
     };
 
-    private Object liscenceArray[] = {
+    private Object licenseArray[] = {
             "beginDate",
             "endDate"
     };
@@ -82,8 +82,8 @@ public class InvoiceDataFile extends DataFile{
                         productType = ic.getProductType(tempProduct);
                         if (productType.equals("equipment")) {
                             theArray = equipmentArray;
-                        } else if (productType.equals("liscnence")) {
-                            theArray = liscenceArray;
+                        } else if (productType.equals("license")) {
+                            theArray = licenseArray;
                         } else if (productType.equals("consultation")) {
                             theArray = consultationArray;
                         }

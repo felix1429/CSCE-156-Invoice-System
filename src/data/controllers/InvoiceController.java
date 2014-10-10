@@ -10,7 +10,7 @@ public class InvoiceController {
         if(input.has("pricePerUnit")) {
             return "equipment";
         }else if(input.has("serviceFee")) {
-            return "liscence";
+            return "license";
         }else if(input.has("hourlyFee")) {
             return "consultation";
         }else {
