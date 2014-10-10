@@ -85,16 +85,16 @@ public class InvoiceDataFile extends DataFile{
                         productArray = ic.splitProductListToTokens(tempValue);
                         for(int foo = 0; foo < productArray.length; foo ++) {
                             tempValue = productArray[foo];
-                            tempProduct = DataFieldController.getProductDataFromCode(tempValue);
                             productFields = ic.splitProductDataToTokens(tempValue);
+                            tempProduct = DataFieldController.getProductDataFromCode(productFields[0]);
                             productType = ic.getProductType(tempProduct);
                             if (productType.equals("equipment")) {
                                 theArray = equipmentArray;
                                 tempJObject.put(theArray[0].toString(), productFields[0]);
                             } else if (productType.equals("license")) {
                                 theArray = licenseArray;
-                                tempJObject.put(theArray[0].toString(), productFields[0]);
-                                tempJObject.put(theArray[1].toString(), productFields[1]);
+                                tempJObject.put(theArray[0].toString(), productFields[1]);
+                                tempJObject.put(theArray[1].toString(), productFields[2]);
                             } else if (productType.equals("consultation")) {
                                 theArray = consultationArray;
                                 tempJObject.put(theArray[0].toString(), productFields[0]);

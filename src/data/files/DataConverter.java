@@ -52,21 +52,27 @@ public class DataConverter {
         for(File inputFile : listOfInputFiles) {
             if(inputFile.getName().equals("Persons.dat")) {
                 PersonDataFile pData = new PersonDataFile(inputFile.getAbsolutePath());
-                System.out.println(pData.getOuterJSONObject());
+//                System.out.println(pData.getOuterJSONObject());
 //                writeToFile(pData);
-                for (File inputFile1 : listOfInputFiles) {
-                    if (inputFile1.getName().equals("Customers.dat")) {
+                for(File inputFile1 : listOfInputFiles) {
+                    if(inputFile1.getName().equals("Customers.dat")) {
                         CustomerDataFile cData = new CustomerDataFile(inputFile1.getAbsolutePath());
-                        System.out.println(cData.getOuterJSONObject());
+//                        System.out.println(cData.getOuterJSONObject());
 //                        writeToFile(cData);
                     } else if (inputFile1.getName().equals("Products.dat")) {
                         ProductDataFile prData = new ProductDataFile(inputFile1.getAbsolutePath());
-                        System.out.println(prData.getOuterJSONObject());
+//                        System.out.println(prData.getOuterJSONObject());
 //                        writeToFile(prData);
+                    }
+                }
+                for(File blah : listOfInputFiles) {
+                    if(blah.getName().equals("Invoices.dat")) {
+                        InvoiceDataFile iData = new InvoiceDataFile(blah.getAbsolutePath());
                     }
                 }
             }
         }
+
     }
 
     /**
