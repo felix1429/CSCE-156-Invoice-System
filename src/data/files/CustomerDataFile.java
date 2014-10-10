@@ -35,7 +35,7 @@ public class CustomerDataFile extends DataFile {
         for(int counter = 1;counter <= this.numberOfRecords;counter++) {
             tokenArray = fileArray.get(counter);
             JSONObject tempJObject = new JSONObject();
-            for (int count = 0; count < tokenArray.length; count++) {
+            for(int count = 0; count < tokenArray.length; count++) {
                 Object ob = keyArray[count];
                 tempValue = tokenArray[count];
                 if(count == 0) {

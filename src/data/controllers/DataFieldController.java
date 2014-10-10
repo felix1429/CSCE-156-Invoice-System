@@ -10,6 +10,7 @@ public class DataFieldController {
 
     private static HashMap<String, JSONObject> personCodeMap = new HashMap<String, JSONObject>();
     private static HashMap<String, JSONObject> customerCodeMap = new HashMap<String, JSONObject>();
+    private static HashMap<String, JSONObject> productCodeMap = new HashMap<String, JSONObject>();
     private ArrayList<String> emailAddresses = new ArrayList<String>();
     private ArrayList<String> address = new ArrayList<String>() {
         {
@@ -96,5 +97,13 @@ public class DataFieldController {
 
     public static void addToCustomerCodeMap(String key, JSONObject value) {
         customerCodeMap.put(key, value);
+    }
+
+    public static JSONObject getProductDataFromCode(String code) {
+        return productCodeMap.get(code);
+    }
+
+    public static void addToProductCodeMap(String key, JSONObject value) {
+        productCodeMap.put(key, value);
     }
 }

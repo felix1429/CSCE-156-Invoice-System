@@ -2,6 +2,8 @@ package data.files;
 
 import data.controllers.DataFieldController;
 import data.controllers.InvoiceController;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class InvoiceDataFile extends DataFile{
     private InvoiceController ic = new InvoiceController();
     private ArrayList<Object> person = dfc.getPersonList();
     private ArrayList<Object> products = new ArrayList<Object>();
+    protected String tempValue;
+    protected JSONArray finalJSON;
+    protected JSONArray JSONArrayList = new JSONArray();
     protected Object keyArray[] = {
             "Invoice",
             person,
@@ -55,7 +60,20 @@ public class InvoiceDataFile extends DataFile{
     private void convertToOutputString(ArrayList<String[]> fileArray) {
         for(int counter = 1; counter < this.numberOfRecords; counter++) {
             tokenArray = fileArray.get(counter);
-
+            JSONObject tempJObject = new JSONObject();
+            for(int count = 0; count < tokenArray.length; count++) {
+                Object ob = keyArray[count];
+                tempValue = tokenArray[count];
+                if(count == 0) {
+                    tempJObject.put(ob.toString(), tempValue);
+                }else if(count == 1) {
+                    tempJObject.put("customer", DataFieldController.getCustomerDataFromCode(tempValue));
+                }else if(count == 2) {
+                    tempJObject.put("salesperson", DataFieldController.getPersonDataFromCode(tempValue));
+                }else if(count == 3) {
+                    
+                }
+            }
         }
     }
 

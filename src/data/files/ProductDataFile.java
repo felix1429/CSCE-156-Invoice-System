@@ -12,6 +12,7 @@ public class ProductDataFile extends DataFile {
 
     protected JSONArray finalJSON;
     protected JSONArray JSONArrayList = new JSONArray();
+    private String tempProductCode;
     private DataFieldController dfc = new DataFieldController();
     private ArrayList<Object> person = dfc.getPersonList();
     private Object theArray[];
@@ -47,7 +48,8 @@ public class ProductDataFile extends DataFile {
         for (int counter = 1; counter <= this.numberOfRecords; counter++) {
             tokenArray = fileArray.get(counter);
             JSONObject tempJObject = new JSONObject();
-            tempJObject.put(keyArray[0].toString(), tokenArray[0]);
+            tempProductCode = tokenArray[0];
+            tempJObject.put(keyArray[0].toString(), tempProductCode);
             String type = tokenArray[1];
             if(type.equals("E")) {
                 theArray = equipmentArray;
@@ -64,6 +66,7 @@ public class ProductDataFile extends DataFile {
                     tempJObject.put("consultant", DataFieldController.getPersonDataFromCode(tokenArray[count]));
                 }
             }
+            DataFieldController.addToProductCodeMap(tempProductCode, tempJObject);
             JSONArrayList.put(tempJObject);
         }
         return JSONArrayList;
