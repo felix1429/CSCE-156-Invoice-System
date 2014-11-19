@@ -19,13 +19,13 @@ DROP TABLE IF EXISTS `Persons`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `Persons` (
-`PersonID` int(11) NOT NULL AUTO_INCREMENT,
-`PersonCode` varchar(20) NOT NULL,
-`PersAddressID` int(11) NOT NULL,
-`PersonLastName` varchar(30) NOT NULL,
-`PersonFirstName` varchar(30) NOT NULL,
-PRIMARY KEY (`PersonID`),
-FOREIGN KEY (`PersAddressID`) REFERENCES PersonAddress(`PersAddressID`)
+  `PersonID` int(11) NOT NULL AUTO_INCREMENT,
+  `PersonCode` varchar(20) NOT NULL,
+  `PersAddressID` int(11) NOT NULL,
+  `PersonLastName` varchar(30) NOT NULL,
+  `PersonFirstName` varchar(30) NOT NULL,
+  PRIMARY KEY (`PersonID`),
+  FOREIGN KEY (`PersAddressID`) REFERENCES PersonAddress(`PersAddressID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,14 +48,14 @@ DROP TABLE IF EXISTS `Customers`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `Customers` (
-`CustomerID` int(11) NOT NULL AUTO_INCREMENT,
-`CustomerCode` varchar(20) NOT NULL,
-`CustomerType` varchar(2) NOT NULL,
-`PersonCode` varchar(20) NOT NULL,
-`PersonID` int(11) NOT NULL,
-`CustomerName` varchar(40) NOT NULL,
-PRIMARY KEY (`CustomerID`),
-FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
+  `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerCode` varchar(20) NOT NULL,
+  `CustomerType` varchar(2) NOT NULL,
+  `PersonCode` varchar(20) NOT NULL,
+  `PersonID` int(11) NOT NULL,
+  `CustomerName` varchar(40) NOT NULL,
+  PRIMARY KEY (`CustomerID`),
+  FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -78,11 +78,11 @@ DROP TABLE IF EXISTS `Email`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `Email` (
-`EmailID` int(11) NOT NULL AUTO_INCREMENT,
-`PersonID` int(11) NOT NULL,
-`EmailAddress` varchar(30) DEFAULT NULL,
-PRIMARY KEY (`EmailID`),
-FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
+  `EmailID` int(11) NOT NULL AUTO_INCREMENT,
+  `PersonID` int(11) NOT NULL,
+  `EmailAddress` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`EmailID`),
+  FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -105,15 +105,15 @@ DROP TABLE IF EXISTS `CustomerAddress`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `CustomerAddress` (
-`CustAddressID` int(11) NOT NULL AUTO_INCREMENT,
-`CustomerID` int(11) NOT NULL,
-`Street` varchar(30) NOT NULL,
-`City` varchar(30) NOT NULL,
-`CityState` varchar(30) NOT NULL,
-`ZipCode` varchar(20) NOT NULL,
-`Country` varchar(20) NOT NULL,
-PRIMARY KEY (`CustAddressID`),
-FOREIGN KEY (`CustomerID`) REFERENCES Customers(`CustomerID`)
+  `CustAddressID` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerID` int(11) NOT NULL,
+  `Street` varchar(30) NOT NULL,
+  `City` varchar(30) NOT NULL,
+  `CityState` varchar(30) NOT NULL,
+  `ZipCode` varchar(20) NOT NULL,
+  `Country` varchar(20) NOT NULL,
+  PRIMARY KEY (`CustAddressID`),
+  FOREIGN KEY (`CustomerID`) REFERENCES Customers(`CustomerID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -136,15 +136,15 @@ DROP TABLE IF EXISTS `PersonAddress`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `PersonAddress` (
-`PersAddressID` int(11) NOT NULL AUTO_INCREMENT,
-`PersonID` int(20) NOT NULL,
-`Street` varchar(30) NOT NULL,
-`City` varchar(30) NOT NULL,
-`CityState` varchar(30) NOT NULL,
-`ZipCode` varchar(20) NOT NULL,
-`Country` varchar(20) NOT NULL,
-PRIMARY KEY (`PersAddressID`),
-FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
+  `PersAddressID` int(11) NOT NULL AUTO_INCREMENT,
+  `PersonID` int(20) NOT NULL,
+  `Street` varchar(30) NOT NULL,
+  `City` varchar(30) NOT NULL,
+  `CityState` varchar(30) NOT NULL,
+  `ZipCode` varchar(20) NOT NULL,
+  `Country` varchar(20) NOT NULL,
+  PRIMARY KEY (`PersAddressID`),
+  FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,17 +167,17 @@ DROP TABLE IF EXISTS `Products`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `Products` (
-`ProductID` int(11) NOT NULL AUTO_INCREMENT,
-`ProductCode` varchar(30) NOT NULL,
-`ProductType` varchar(5) NOT NULL,
-`ProductName` varchar(100) NOT NULL,
-`PersonID` int(30) DEFAULT NULL,
-`PricePerUnit` float(15) NOT NULL DEFAULT '0',
-`ProductFee` float(15) NOT NULL DEFAULT '0',
-`PricePerHour` float(15) NOT NULL DEFAULT '0',
-`PricePerYear` float(15) NOT NULL DEFAULT '0',
-PRIMARY KEY (`ProductID`),
-FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
+  `ProductID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProductCode` varchar(30) NOT NULL,
+  `ProductType` varchar(5) NOT NULL,
+  `ProductName` varchar(100) NOT NULL,
+  `PersonID` int(30) DEFAULT NULL,
+  `PricePerUnit` float(15) NOT NULL DEFAULT '0',
+  `ProductFee` float(15) NOT NULL DEFAULT '0',
+  `PricePerHour` float(15) NOT NULL DEFAULT '0',
+  `PricePerYear` float(15) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ProductID`),
+  FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -200,20 +200,23 @@ DROP TABLE IF EXISTS `Invoices`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `Invoices` (
-`InvoiceID` int(11) NOT NULL AUTO_INCREMENT,
-`InvoiceCode` varchar(30) NOT NULL,
-`CustomerID` int(20) NOT NULL,
-`PersonID` int(30) NOT NULL,
-`ProductID` int(30) DEFAULT NULL,
-`NumberOfUnits` int(11) NOT NULL DEFAULT '0',
-`NumberOfHours` float(15) NOT NULL DEFAULT '0',
-`BeginDate` date DEFAULT NULL,
-`EndDate` date DEFAULT NULL,
-PRIMARY KEY (`InvoiceID`),
-FOREIGN KEY (`ProductID`) REFERENCES  Products(`ProductID`),
-FOREIGN KEY (`CustomerID`) REFERENCES  Customers(`CustomerID`),
-FOREIGN KEY (`PersonID`) REFERENCES  Persons(`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `InvoiceID` int(11) NOT NULL AUTO_INCREMENT,
+  `InvoiceCode` varchar(30) NOT NULL,
+  `CustomerID` int(20) NOT NULL,
+  `PersonID` int(30) NOT NULL,
+  `ProductID` int(30) DEFAULT NULL,
+  `NumberOfUnits` int(11) NOT NULL DEFAULT '0',
+  `NumberOfHours` float(15) NOT NULL DEFAULT '0',
+  `BeginDate` date DEFAULT NULL,
+  `EndDate` date DEFAULT NULL,
+  PRIMARY KEY (`InvoiceID`),
+  FOREIGN KEY (`ProductID`)
+  REFERENCES Products (`ProductID`),
+  FOREIGN KEY (`CustomerID`)
+  REFERENCES Customers (`CustomerID`),
+  FOREIGN KEY (`PersonID`)
+  REFERENCES Persons (`PersonID`)
+)  ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE = utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +225,7 @@ FOREIGN KEY (`PersonID`) REFERENCES  Persons(`PersonID`)
 
 /*--LOCK TABLES `Invoices` WRITE;*/;
 /*!40000 ALTER TABLE `Invoices` DISABLE KEYS */;
-INSERT INTO `Invoices` VALUES (1,'INV001',2,16,1,2,0.00,NULL,NULL),(2,'INV001',2,16,5,0,0.00,2013-01-01,2013-06-30),(3,'INV002',1,18,2,25,0.00,NULL,NULL),(4,'INV002',1,18,6,0,10.00,NULL,NULL),(5,'INV002',1,18,4,1,0.00,NULL,NULL),(6,'INV003',5,17,2,10,0.00,NULL,NULL),(7,'INV003',5,17,5,0,0.00,2013-01-15,2014-12-31),(8,'INV004',2,17,7,0,10.00,NULL,NULL),(9,'INV004',2,17,8,0,0.00,2014-01-01,2018-12-31),(10,'INV004',2,17,9,0,0.00,2014-01-01,2018-12-31);
+INSERT INTO `Invoices` VALUES (1,'INV001',2,16,1,2,0.00,NULL,NULL),(2,'INV001',2,16,5,0,0.00,'2013-01-01','2013-06-30'),(3,'INV002',1,18,2,25,0.00,NULL,NULL),(4,'INV002',1,18,6,0,10.00,NULL,NULL),(5,'INV002',1,18,4,1,0.00,NULL,NULL),(6,'INV003',5,17,2,10,0.00,NULL,NULL),(7,'INV003',5,17,5,0,0.00,'2013-01-15','2014-12-31'),(8,'INV004',2,17,7,0,10.00,NULL,NULL),(9,'INV004',2,17,8,0,0.00,'2014-01-01','2018-12-31'),(10,'INV004',2,17,9,0,0.00,'2014-01-01','2018-12-31');
 /*!40000 ALTER TABLE `Invoices` ENABLE KEYS */;
 /*--UNLOCK TABLES;*/;
 
