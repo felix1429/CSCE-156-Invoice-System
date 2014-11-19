@@ -1,6 +1,8 @@
 package data.databaseModels;
 
 import java.sql.*;
+import java.util.List;
+import java.sql.*;
 
 class DatabaseAccessModel {
 
@@ -45,7 +47,28 @@ class DatabaseAccessModel {
         return conn;
     }
 
-    public Connection getConnection() {
-        return conn;
+    public PreparedStatement prepareStatement(String query,  Object args[]) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(query);
+        int counter = 1;
+        for(Object o : args) {
+            if(o instanceof String) {
+                ps.setString(counter, (String) o);
+            }else if(o instanceof Integer) {
+                ps.setInt(counter, (Integer) o);
+            }else if(o instanceof Double) {
+                ps.setDouble(counter, (Double) o);
+            }
+            counter++;
+        }
+        return ps;
+    }
+
+    public void closeConnection(ResultSet rs, PreparedStatement ps) throws SQLException {
+        if(rs != null && !rs.isClosed())
+            rs.close();
+        if(ps != null && !ps.isClosed())
+            ps.close();
+        if(conn != null && !conn.isClosed())
+            conn.close();
     }
 }

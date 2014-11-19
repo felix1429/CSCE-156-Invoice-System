@@ -1,6 +1,6 @@
 package data.databaseModels;
 
-import javax.xml.crypto.Data;
+import java.sql.*;
 
 /**
  * This is a collection of utility methods that define a general API for
@@ -37,7 +37,31 @@ public class InvoiceData {
 	 * @param country
 	 */
 	public static void addPerson(String personCode, String firstName, String lastName, 
-			String street, String city, String state, String zip, String country) {
+			String street, String city, String state, String zip, String country) throws SQLException {
+
+		Integer personID = null;
+
+		String query = "SELECT * FROM Persons WHERE "
+				+ "PersonCode = ? AND PersonFirstName = ? AND PersonLastName = ?;";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {personCode, firstName, lastName});
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next()){
+			personID = (Integer) rs.getObject("PersonID");
+		}
+
+		if(personID == null) {
+			query = "INSERT INTO Person (PersonCode, PersAddressID, PersonLastName, PersonFistName) "
+					+ "SELECT ?, PA.PersAddressID, ?, ?, "
+					+ "FROM PersonAddress AS PA "
+					+ "WHERE PA.Street = ? AND PA.City = ? AND PA.CityState = ? AND PA.ZipCode = ? AND PA.Country = ?;";
+
+			ps = dam.prepareStatement(query, new Object[] {personCode, lastName, firstName, street, city, state, zip, country});
+			ps.executeUpdate();
+		}
+
+		dam.closeConnection(rs, ps);
 	}
 	
 	/**
@@ -67,7 +91,7 @@ public class InvoiceData {
 	/**
 	 * Removes a particular product record from the database corresponding to the
 	 * provided <code>productCode</code>
-	 * @param assetCode
+	 * @param productCode
 	 */
 	public static void removeProduct(String productCode) {}
 
