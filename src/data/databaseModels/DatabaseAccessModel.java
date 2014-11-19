@@ -51,12 +51,16 @@ class DatabaseAccessModel {
         PreparedStatement ps = conn.prepareStatement(query);
         int counter = 1;
         for(Object o : args) {
-            if(o instanceof String) {
-                ps.setString(counter, (String) o);
-            }else if(o instanceof Integer) {
-                ps.setInt(counter, (Integer) o);
-            }else if(o instanceof Double) {
-                ps.setDouble(counter, (Double) o);
+            try {
+                int i = Integer.parseInt((String)o);
+                ps.setInt(counter, i);
+            } catch (NumberFormatException e) {
+                try {
+                    Float f = Float.parseFloat((String) o);
+                    ps.setFloat(counter, f);
+                } catch (NumberFormatException ex) {
+                    ps.setString(counter, (String)o);
+                }
             }
             counter++;
         }
