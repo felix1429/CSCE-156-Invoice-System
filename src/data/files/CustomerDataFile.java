@@ -1,7 +1,6 @@
 package data.files;
 
 import data.controllers.DataFieldController;
-import data.controllers.JSONController;
 import org.json.*;
 
 import java.io.IOException;

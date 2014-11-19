@@ -1,11 +1,16 @@
 package data.databaseModels;
 
+import javax.xml.crypto.Data;
+
 /**
  * This is a collection of utility methods that define a general API for
  * interacting with the database supporting this application.
  *
  */
 public class InvoiceData {
+
+	private static DatabaseAccessModel dam = new DatabaseAccessModel(
+			"jdbc:mysql://cse.unl.edu/thennig", "thennig", "Z6nzb9");
 
 	/**
 	 * Method that removes every person record from the database
