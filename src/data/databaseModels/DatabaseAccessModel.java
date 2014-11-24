@@ -53,26 +53,30 @@ class DatabaseAccessModel {
         for(Object o : args) {
             try {
                 int i = Integer.parseInt((String)o);
+                System.out.println("int: " + counter + " " + i);
                 ps.setInt(counter, i);
             } catch (NumberFormatException e) {
-                try {
-                    Float f = Float.parseFloat((String) o);
-                    ps.setFloat(counter, f);
-                } catch (NumberFormatException ex) {
-                    ps.setString(counter, (String)o);
-                }
+                System.out.println("string: " + counter + " " + (String)o);
+                ps.setString(counter, (String)o);
+            } catch (ClassCastException exp) {
+                Float f = new Float(o.toString());
+                System.out.println("float: " + f);
+                ps.setFloat(counter, f);
             }
             counter++;
         }
+        System.out.println(ps.toString());
         return ps;
     }
 
     public void closeConnection(ResultSet rs, PreparedStatement ps) throws SQLException {
-        if(rs != null && !rs.isClosed())
-            rs.close();
-        if(ps != null && !ps.isClosed())
-            ps.close();
-        if(conn != null && !conn.isClosed())
-            conn.close();
+        rs.close();
+        ps.close();
+        conn.close();
+    }
+
+    public void closeConnection(PreparedStatement ps) throws SQLException {
+        ps.close();
+        conn.close();
     }
 }

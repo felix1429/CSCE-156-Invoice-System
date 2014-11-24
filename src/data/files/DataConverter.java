@@ -12,10 +12,10 @@ public class DataConverter {
 
     public static void main(String args[]) throws IOException, ParseException, SQLException {
         DataConverter dc = new DataConverter();
-        dc.addDude();
+        dc.testStuff();
     }
 
-    public void addDude() throws SQLException {
-        InvoiceData.addPerson("abc", "Trevor", "Hennig", "N 17th", "Lincoln", "NE", "68508", "USA");
+    public void testStuff() throws SQLException {
+        InvoiceData.addEquipmentToInvoice("INV004", "b29e", 1000);
     }
 }
