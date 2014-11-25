@@ -8,14 +8,12 @@ import java.text.ParseException;
 
 public class DataConverter {
 
-    InvoiceData id = new InvoiceData();
-
     public static void main(String args[]) throws IOException, ParseException, SQLException {
         DataConverter dc = new DataConverter();
         dc.testStuff();
     }
 
     public void testStuff() throws SQLException {
-        InvoiceData.addEquipmentToInvoice("INV004", "b29e", 1000);
+        InvoiceData.addConsultationToInvoice("INV002", "782g", 500);
     }
 }

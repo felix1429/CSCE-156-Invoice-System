@@ -53,14 +53,11 @@ class DatabaseAccessModel {
         for(Object o : args) {
             try {
                 int i = Integer.parseInt((String)o);
-                System.out.println("int: " + counter + " " + i);
                 ps.setInt(counter, i);
             } catch (NumberFormatException e) {
-                System.out.println("string: " + counter + " " + (String)o);
                 ps.setString(counter, (String)o);
             } catch (ClassCastException exp) {
                 Float f = new Float(o.toString());
-                System.out.println("float: " + f);
                 ps.setFloat(counter, f);
             }
             counter++;

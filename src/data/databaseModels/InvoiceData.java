@@ -349,8 +349,9 @@ public class InvoiceData {
 
 		while(rs.next()) {
 			invoiceID = (Integer) rs.getObject("InvoiceID");
-			if(!found) {
-				found = invoiceCode.equals(rs.getString("InvoiceCode"));
+			found = invoiceCode.equals(rs.getString("InvoiceCode"));
+			if(found) {
+				break;
 			}
 		}
 
@@ -402,12 +403,134 @@ public class InvoiceData {
 	 * invoice corresponding to the provided <code>invoiceCode</code> with the given
 	 * begin/end dates
 	 */
-	public static void addLicenseToInvoice(String invoiceCode, String productCode, String startDate, String endDate) {}
+	public static void addLicenseToInvoice(String invoiceCode, String productCode, String startDate, String endDate) throws SQLException {
+
+		Integer invoiceID = null;
+		boolean found = false;
+		int customerID = 0;
+		int personID = 0;
+
+		String query = "SELECT * FROM Invoices WHERE InvoiceCode = ?;";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {invoiceCode});
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next()) {
+			invoiceID = (Integer) rs.getObject("InvoiceID");
+			found = invoiceCode.equals(rs.getString("InvoiceCode"));
+			if(found) {
+				break;
+			}
+		}
+
+		if(invoiceID != null && found) {
+
+			query = "INSERT INTO Invoices "
+					+ "(InvoiceCode,CustomerID,PersonID,ProductID,NumberOfUnits,NumberOfHours,BeginDate,EndDate) "
+					+ "VALUES(?,NULL,NULL,(SELECT ProductID FROM Products WHERE ProductCode = ?),"
+					+ "0,0,?,?);";
+
+			ps = dam.prepareStatement(query, new Object[] {invoiceCode, productCode, startDate, endDate});
+			ps.executeUpdate();
+
+
+			query = "SELECT CustomerID FROM Invoices WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {invoiceCode});
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				customerID = rs.getInt("CustomerID");
+				if (customerID == rs.getInt("CustomerID")) {
+					break;
+				}
+			}
+
+			query = "UPDATE Invoices SET CustomerID = ?;";
+			ps = dam.prepareStatement(query, new Object[] {customerID});
+			ps.executeUpdate();
+
+			query = "SELECT PersonID FROM Invoices WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {invoiceCode});
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				personID = rs.getInt("PersonID");
+				if (personID == (rs.getInt("PersonID"))) {
+					break;
+				}
+			}
+
+			query = "UPDATE Invoices SET PersonID = ?;";
+			ps = dam.prepareStatement(query, new Object[] {personID});
+			ps.executeUpdate();
+
+		}
+		dam.closeConnection(rs, ps);
+	}
 
 	/**
 	 * Adds a particular equipment (corresponding to <code>productCode</code> to an 
 	 * invoice corresponding to the provided <code>invoiceCode</code> with the given
 	 * number of billable hours.
 	 */
-	public static void addConsultationToInvoice(String invoiceCode, String productCode, double numHours) {}
+	public static void addConsultationToInvoice(String invoiceCode, String productCode, double numHours) throws SQLException {
+
+		Integer invoiceID = null;
+		boolean found = false;
+		int customerID = 0;
+		int personID = 0;
+
+		String query = "SELECT * FROM Invoices WHERE InvoiceCode = ?;";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {invoiceCode});
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next()) {
+			invoiceID = (Integer) rs.getObject("InvoiceID");
+			found = invoiceCode.equals(rs.getString("InvoiceCode"));
+			if(found) {
+				break;
+			}
+		}
+		if(invoiceID != null && found) {
+
+			query = "INSERT INTO Invoices "
+					+ "(InvoiceCode,CustomerID,PersonID,ProductID,NumberOfUnits,NumberOfHours,BeginDate,EndDate) "
+					+ "VALUES(?,NULL,NULL,(SELECT ProductID FROM Products WHERE ProductCode = ?),"
+					+ "0,?,NULL,NULL);";
+
+			ps = dam.prepareStatement(query, new Object[] {invoiceCode, productCode, numHours});
+			ps.executeUpdate();
+
+
+			query = "SELECT CustomerID FROM Invoices WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {invoiceCode});
+			rs = ps.executeQuery();
+
+			while(rs.next()) {
+				customerID = rs.getInt("CustomerID");
+				if (customerID == (rs.getInt("CustomerID"))) {
+					break;
+				}
+			}
+
+			query = "UPDATE Invoices SET CustomerID = ?;";
+			ps = dam.prepareStatement(query, new Object[] {customerID});
+			ps.executeUpdate();
+
+			query = "SELECT PersonID FROM Invoices WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {invoiceCode});
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				personID = rs.getInt("PersonID");
+				if (personID == (rs.getInt("PersonID"))) {
+					break;
+				}
+			}
+
+			query = "UPDATE Invoices SET PersonID = ?;";
+			ps = dam.prepareStatement(query, new Object[] {personID});
+			ps.executeUpdate();
+
+		}
+		dam.closeConnection(rs, ps);
+	}
 }
