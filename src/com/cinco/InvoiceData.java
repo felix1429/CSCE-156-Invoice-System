@@ -1,6 +1,7 @@
-package data.databaseModels;
+package com.cinco;
 
 import java.sql.*;
+import data.databaseModels.DatabaseAccessModel;
 
 /**
  * This is a collection of utility methods that define a general API for
@@ -424,7 +425,7 @@ public class InvoiceData {
 		}
 
 		if(invoiceID != null && found) {
-//TODO: make int product codes go in as strings
+			//TODO: make int product codes go in as strings
 			query = "INSERT INTO Invoices "
 					+ "(InvoiceCode,CustomerID,PersonID,ProductID,NumberOfUnits,NumberOfHours,BeginDate,EndDate) "
 					+ "VALUES(?,NULL,NULL,(SELECT ProductID FROM Products WHERE ProductCode = ?),"
