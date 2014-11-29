@@ -183,11 +183,11 @@ public class InvoiceController {
     }
 
     public String getDaysBetweenDates(String startDate, String endDate) throws ParseException {
-        SimpleDateFormat theFormat = new SimpleDateFormat("dd MM yyyy");
+        SimpleDateFormat theFormat = new SimpleDateFormat("yyyy MM dd");
         String[] startArray = startDate.split("-");
         String[] endArray = endDate.split("-");
-        String start = startArray[2] + " " + startArray[1] + " " + startArray[0];
-        String end = endArray[2] + " " + endArray[1] + " " + endArray[0];
+        String start = startArray[0] + " " + startArray[1] + " " + startArray[2];
+        String end = endArray[0] + " " + endArray[1] + " " + endArray[2];
         Date beginDate = theFormat.parse(start);
         Date endingDate = theFormat.parse(end);
         long diff = endingDate.getTime() - beginDate.getTime();

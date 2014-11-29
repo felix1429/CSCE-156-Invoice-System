@@ -26,7 +26,9 @@ CREATE TABLE `Persons` (
   `PersonFirstName` varchar(30) NOT NULL,
   PRIMARY KEY (`PersonID`),
   FOREIGN KEY (`PersAddressID`) REFERENCES PersonAddress(`PersAddressID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,6 +51,7 @@ DROP TABLE IF EXISTS `Customers`;
 
 CREATE TABLE `Customers` (
   `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
+  `CustAddressID` int(11) NOT NULL,
   `CustomerCode` varchar(20) NOT NULL,
   `CustomerType` varchar(2) NOT NULL,
   `PersonCode` varchar(20) NOT NULL,
@@ -56,7 +59,12 @@ CREATE TABLE `Customers` (
   `CustomerName` varchar(40) NOT NULL,
   PRIMARY KEY (`CustomerID`),
   FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (`CustAddressID`) REFERENCES CustomerAddress(`CustAddressID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +73,7 @@ CREATE TABLE `Customers` (
 
 /*--LOCK TABLES `Customers` WRITE;*/;
 /*!40000 ALTER TABLE `Customers` DISABLE KEYS */;
-INSERT INTO `Customers` VALUES (1,'C001','G','231',11,'University of Nebraska-Lincoln'),(2,'C002','C','944c',1,'Stark Industries'),(3,'C003','C','306a',2,'Venture Industries'),(4,'C004','G','321f',6,'National Security Administration'),(5,'C005','C','bbchar',19,'Vandelay Industries'),(6,'C006','C','321dr',13,"Mr. Smith's #1 Supply Co. Inc.");
+INSERT INTO `Customers` VALUES (1,1,'C001','G','231',11,'University of Nebraska-Lincoln'),(2,2,'C002','C','944c',1,'Stark Industries'),(3,3,'C003','C','306a',2,'Venture Industries'),(4,4,'C004','G','321f',6,'National Security Administration'),(5,5,'C005','C','bbchar',19,'Vandelay Industries'),(6,6,'C006','C','321dr',13,"Mr. Smith's #1 Supply Co. Inc.");
 /*!40000 ALTER TABLE `Customers` ENABLE KEYS */;
 /*--UNLOCK TABLES;*/;
 
@@ -83,7 +91,9 @@ CREATE TABLE `Email` (
   `EmailAddress` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`EmailID`),
   FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,15 +116,13 @@ DROP TABLE IF EXISTS `CustomerAddress`;
 
 CREATE TABLE `CustomerAddress` (
   `CustAddressID` int(11) NOT NULL AUTO_INCREMENT,
-  `CustomerID` int(11) NOT NULL,
   `Street` varchar(30) NOT NULL,
   `City` varchar(30) NOT NULL,
   `CityState` varchar(30) NOT NULL,
   `ZipCode` varchar(20) NOT NULL,
   `Country` varchar(20) NOT NULL,
-  PRIMARY KEY (`CustAddressID`),
-  FOREIGN KEY (`CustomerID`) REFERENCES Customers(`CustomerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`CustAddressID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +131,7 @@ CREATE TABLE `CustomerAddress` (
 
 /*--LOCK TABLES `CustomerAddress` WRITE;*/;
 /*!40000 ALTER TABLE `CustomerAddress` DISABLE KEYS */;
-INSERT INTO `CustomerAddress` VALUES (1,1,'259 Avery Hall','Lincoln','NE','68588-0115','USA'),(2,2,'184 Marvel Way','New York','NY','10453','USA'),(3,3,'123 Venture Way','Culver City','CA','90230','USA'),(4,4,'9800 Savage Rd','Fort Meade','MD','20755','USA'),(5,5,'1060 West Addison','Chicago','IL','60601','USA'),(6,6,'456 West 7th St.','Omaha','NE','68500','USA');
+INSERT INTO `CustomerAddress` VALUES (1,'259 Avery Hall','Lincoln','NE','68588-0115','USA'),(2,'184 Marvel Way','New York','NY','10453','USA'),(3,'123 Venture Way','Culver City','CA','90230','USA'),(4,'9800 Savage Rd','Fort Meade','MD','20755','USA'),(5,'1060 West Addison','Chicago','IL','60601','USA'),(6,'456 West 7th St.','Omaha','NE','68500','USA');
 /*!40000 ALTER TABLE `CustomerAddress` ENABLE KEYS */;
 /*--UNLOCK TABLES;*/;
 
@@ -137,15 +145,13 @@ DROP TABLE IF EXISTS `PersonAddress`;
 
 CREATE TABLE `PersonAddress` (
   `PersAddressID` int(11) NOT NULL AUTO_INCREMENT,
-  `PersonID` int(20) NOT NULL,
   `Street` varchar(30) NOT NULL,
   `City` varchar(30) NOT NULL,
   `CityState` varchar(30) NOT NULL,
   `ZipCode` varchar(20) NOT NULL,
   `Country` varchar(20) NOT NULL,
-  PRIMARY KEY (`PersAddressID`),
-  FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`PersAddressID`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +160,7 @@ CREATE TABLE `PersonAddress` (
 
 /*--LOCK TABLES `PersonAddress` WRITE;*/;
 /*!40000 ALTER TABLE `PersonAddress` DISABLE KEYS */;
-INSERT INTO `PersonAddress` VALUES (1,1,'1060 West Addison Street','Chicago','IL','60613','USA'),(2,2,'123 N 1st Street','Omaha','NE','68116','USA'),(3,3,'8753 West 3rd Ave.','Dallas','TX','75001','USA'),(4,4,'123 Friendly Street','Ottawa','ON','K1A 0G9','Canada'),(5,5,'1 Wall Street','New York','NY','10005-0012','USA'),(6,6,'321 Bronx Street','New York','NY','10004','USA'),(7,7,'1060 West Addison Street','Chicago','IL','60613','USA'),(8,8,'1060 West Addison Street','Chicago','IL','60613','USA'),(9,9,'1060 West Addison Street','Chicago','IL','60613','USA'),(10,10,'301 Front St W', 'Toronto','ON','M5V 2T6','Canada'),(11,11,'1 Blue Jays Way','Toronto','ON','M5V 1J1','Canada'),(12,12,'Campos El290','Mexico City','FD','','Mexico'),(13,13,'Avery Hall','Lincoln','NE','68503','USA'),(14,14,'126-01 Roosevelt Ave','Flushing','NY','11368','USA'),(15,15,'1 MetLife Stadium Dr','East Rutherford','NJ','07073','USA'),(16,16,'1 E 161st St','Bronx','NY','10451','USA'),(17,17,'700 E Grand Ave','Chicago','IL','60611','USA'),(18,18,'333 W 35th St', 'Chicago','IL','60616','USA'),(19,19,'800 West 7th Street','Albuquerque','NM','87105','USA'),(20,20,'123 Cabo San Lucas','Los Cabos','BCS','','Mexico');
+INSERT INTO `PersonAddress` VALUES (1,'1060 West Addison Street','Chicago','IL','60613','USA'),(2,'123 N 1st Street','Omaha','NE','68116','USA'),(3,'8753 West 3rd Ave.','Dallas','TX','75001','USA'),(4,'123 Friendly Street','Ottawa','ON','K1A 0G9','Canada'),(5,'1 Wall Street','New York','NY','10005-0012','USA'),(6,'321 Bronx Street','New York','NY','10004','USA'),(7,'1060 West Addison Street','Chicago','IL','60613','USA'),(8,'1060 West Addison Street','Chicago','IL','60613','USA'),(9,'1060 West Addison Street','Chicago','IL','60613','USA'),(10,'301 Front St W', 'Toronto','ON','M5V 2T6','Canada'),(11,'1 Blue Jays Way','Toronto','ON','M5V 1J1','Canada'),(12,'Campos El290','Mexico City','FD','','Mexico'),(13,'Avery Hall','Lincoln','NE','68503','USA'),(14,'126-01 Roosevelt Ave','Flushing','NY','11368','USA'),(15,'1 MetLife Stadium Dr','East Rutherford','NJ','07073','USA'),(16,'1 E 161st St','Bronx','NY','10451','USA'),(17,'700 E Grand Ave','Chicago','IL','60611','USA'),(18,'333 W 35th St', 'Chicago','IL','60616','USA'),(19,'800 West 7th Street','Albuquerque','NM','87105','USA'),(20,'123 Cabo San Lucas','Los Cabos','BCS','','Mexico');
 /*!40000 ALTER TABLE `PersonAddress` ENABLE KEYS */;
 /*--UNLOCK TABLES;*/;
 
@@ -177,8 +183,10 @@ CREATE TABLE `Products` (
   `PricePerHour` float(15) NOT NULL DEFAULT '0',
   `PricePerYear` float(15) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ProductID`),
-  FOREIGN KEY (`PersonID`) REFERENCES Persons(`PersonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  FOREIGN KEY (`PersonID`)
+  REFERENCES Persons (`PersonID`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+)  ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE = utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,8 +210,8 @@ DROP TABLE IF EXISTS `Invoices`;
 CREATE TABLE `Invoices` (
   `InvoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `InvoiceCode` varchar(30) NOT NULL,
-  `CustomerID` int(20) NOT NULL,
-  `PersonID` int(30) NOT NULL,
+  `CustomerID` int(20) DEFAULT NULL,
+  `PersonID` int(30) DEFAULT NULL,
   `ProductID` int(30) DEFAULT NULL,
   `NumberOfUnits` int(11) NOT NULL DEFAULT '0',
   `NumberOfHours` float(15) NOT NULL DEFAULT '0',
@@ -211,12 +219,15 @@ CREATE TABLE `Invoices` (
   `EndDate` date DEFAULT NULL,
   PRIMARY KEY (`InvoiceID`),
   FOREIGN KEY (`ProductID`)
-  REFERENCES Products (`ProductID`),
+  REFERENCES Products (`ProductID`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`CustomerID`)
-  REFERENCES Customers (`CustomerID`),
+  REFERENCES Customers (`CustomerID`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`PersonID`)
   REFERENCES Persons (`PersonID`)
-)  ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE = utf8_unicode_ci;
+    ON DELETE CASCADE ON UPDATE CASCADE
+)  ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE = utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
