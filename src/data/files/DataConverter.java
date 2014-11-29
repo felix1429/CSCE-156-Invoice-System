@@ -14,6 +14,6 @@ public class DataConverter {
     }
 
     public void testStuff() throws SQLException {
-        InvoiceData.addConsultationToInvoice("INV002", "782g", 500);
+        InvoiceData.addLicenseToInvoice("INV002", "90fa", "2014-01-5", "2014-05-10");
     }
 }

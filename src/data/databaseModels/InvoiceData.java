@@ -376,8 +376,8 @@ public class InvoiceData {
 				}
 			}
 
-			query = "UPDATE Invoices SET CustomerID = ?;";
-			ps = dam.prepareStatement(query, new Object[] {customerID});
+			query = "UPDATE Invoices SET CustomerID = ? WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {customerID, invoiceCode});
 			ps.executeUpdate();
 
 			query = "SELECT PersonID FROM Invoices WHERE InvoiceCode = ?;";
@@ -390,8 +390,8 @@ public class InvoiceData {
 				}
 			}
 
-			query = "UPDATE Invoices SET PersonID = ?;";
-			ps = dam.prepareStatement(query, new Object[] {personID});
+			query = "UPDATE Invoices SET PersonID = ? WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {personID, invoiceCode});
 			ps.executeUpdate();
 
 		}
@@ -424,7 +424,7 @@ public class InvoiceData {
 		}
 
 		if(invoiceID != null && found) {
-
+//TODO: make int product codes go in as strings
 			query = "INSERT INTO Invoices "
 					+ "(InvoiceCode,CustomerID,PersonID,ProductID,NumberOfUnits,NumberOfHours,BeginDate,EndDate) "
 					+ "VALUES(?,NULL,NULL,(SELECT ProductID FROM Products WHERE ProductCode = ?),"
@@ -444,8 +444,8 @@ public class InvoiceData {
 				}
 			}
 
-			query = "UPDATE Invoices SET CustomerID = ?;";
-			ps = dam.prepareStatement(query, new Object[] {customerID});
+			query = "UPDATE Invoices SET CustomerID = ? WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {customerID,invoiceCode});
 			ps.executeUpdate();
 
 			query = "SELECT PersonID FROM Invoices WHERE InvoiceCode = ?;";
@@ -458,8 +458,8 @@ public class InvoiceData {
 				}
 			}
 
-			query = "UPDATE Invoices SET PersonID = ?;";
-			ps = dam.prepareStatement(query, new Object[] {personID});
+			query = "UPDATE Invoices SET PersonID = ? WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {personID, invoiceCode});
 			ps.executeUpdate();
 
 		}
@@ -512,8 +512,8 @@ public class InvoiceData {
 				}
 			}
 
-			query = "UPDATE Invoices SET CustomerID = ?;";
-			ps = dam.prepareStatement(query, new Object[] {customerID});
+			query = "UPDATE Invoices SET CustomerID = ? WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {customerID, invoiceCode});
 			ps.executeUpdate();
 
 			query = "SELECT PersonID FROM Invoices WHERE InvoiceCode = ?;";
@@ -526,8 +526,8 @@ public class InvoiceData {
 				}
 			}
 
-			query = "UPDATE Invoices SET PersonID = ?;";
-			ps = dam.prepareStatement(query, new Object[] {personID});
+			query = "UPDATE Invoices SET PersonID = ? WHERE InvoiceCode = ?;";
+			ps = dam.prepareStatement(query, new Object[] {personID, invoiceCode});
 			ps.executeUpdate();
 
 		}
