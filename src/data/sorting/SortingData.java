@@ -10,12 +10,15 @@ import java.util.ArrayList;
 public class SortingData {
 
     private static ArrayList<String[]> names = new ArrayList<String[]>();
+    private static ArrayList<Object[]> productTotals = new ArrayList<Object[]>();
     private static ArrayList<String> invoices = new ArrayList<String>();
 
     private static DatabaseAccessModel dam = new DatabaseAccessModel(
             "jdbc:mysql://cse.unl.edu/thennig", "thennig", "Z6nzb9");
 
     public static ArrayList<String[]> getNames() throws SQLException {
+
+        names.clear();
 
         String query = "SELECT DISTINCT PersonLastName, PersonFirstName "
                 + "FROM Persons JOIN Invoices ON Invoices.PersonID = Persons.PersonID;";
@@ -30,6 +33,70 @@ public class SortingData {
         dam.closeConnection(rs, ps);
 
         return names;
+    }
+
+    public static ArrayList<Object[]> getLcenceTotals() throws SQLException {
+
+        productTotals.clear();
+
+        String query = "SELECT (prod.ProductFee + (prod.PricePerYear / 365) * (SELECT DATEDIFF(inv.EndDate,inv.BeginDate))) "
+                + "AS LicenseTotal, CustomerType, InvoiceCode FROM Invoices inv "
+                + "JOIN Products prod ON prod.ProductID = inv.ProductID JOIN Customers cust "
+                + "ON cust.CustomerID = inv.CustomerID WHERE ProductType = 'L';";
+
+        PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            productTotals.add(new String[] {String.valueOf(rs.getFloat("LicenseTotal")),
+                    rs.getString("CustomerType"), rs.getString("InvoiceCode")});
+        }
+        dam.closeConnection(rs, ps);
+
+        return productTotals;
+    }
+
+    public static ArrayList<Object[]> getEquipmentTotal() throws SQLException {
+
+        productTotals.clear();
+
+        String query = "SELECT (prod.PricePerUnit * inv.NumberOfUnits) AS EquipmentTotal, CustomerType, InvoiceCode "
+                + "FROM Invoices inv JOIN Products prod ON prod.ProductID = inv.ProductID "
+                + "JOIN Customers cust ON cust.CustomerID = inv.CustomerID WHERE ProductType = 'E'";
+
+        PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            productTotals.add(new String[] {String.valueOf(rs.getFloat("EquipmentTotal")),
+                    rs.getString("CustomerType"), rs.getString("InvoiceCode")});
+        }
+
+        dam.closeConnection(rs, ps);
+
+        return productTotals;
+    }
+
+    public static ArrayList<Object[]> getConsultationTotal() throws SQLException {
+
+        productTotals.clear();
+
+        String query = "SELECT (prod.ProductFee + (prod.PricePerHour * inv.NumberOfHours)) "
+                + "AS ConsultationTotal, CustomerType, InvoiceCode FROM Invoices inv "
+                + "JOIN Products prod ON prod.ProductID = inv.ProductID JOIN Customers cust "
+                + "ON cust.CustomerID = inv.CustomerID WHERE ProductType = 'C';";
+
+        PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            productTotals.add(new String[] {String.valueOf(rs.getFloat("ConsultationTotal")),
+                    rs.getString("CustomerType"), rs.getString("InvoiceCode")});
+        }
+
+        dam.closeConnection(rs, ps);
+
+        return productTotals;
     }
 
 

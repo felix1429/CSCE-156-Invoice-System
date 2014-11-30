@@ -15,6 +15,6 @@ public class DataConverter {
     }
 
     public void testStuff() throws SQLException {
-        SortingData.getNames();
+        SortingData.getConsultationTotal();
     }
 }
