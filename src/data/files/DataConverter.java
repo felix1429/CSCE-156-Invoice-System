@@ -1,6 +1,7 @@
 package data.files;
 
 import com.cinco.InvoiceData;
+import data.sorting.SortingData;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,6 +15,6 @@ public class DataConverter {
     }
 
     public void testStuff() throws SQLException {
-        InvoiceData.addLicenseToInvoice("INV002", "90fa", "2014-01-5", "2014-05-10");
+        SortingData.getNames();
     }
 }

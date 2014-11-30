@@ -21,6 +21,6 @@ public class Sorting {
     }
 
     public ArrayList returnInvoices() {
-
+        return new ArrayList();
     }
 }
