@@ -2,7 +2,7 @@ package data.sorting;
 
 import java.util.ArrayList;
 
-public class sorting {
+public class Sorting {
 
     private void sortByCustomer() {
 
