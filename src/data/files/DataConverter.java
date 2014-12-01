@@ -18,7 +18,7 @@ public class DataConverter {
 
     public void testStuff() throws SQLException {
         Sorting s = new Sorting();
-        ArrayList<String[]> a = s.sortByCustomer();
+        ArrayList<String[]> a = s.sortByType();
         for(String[] i : a) {
             for(String j : i) {
                 System.out.print(j + " ");

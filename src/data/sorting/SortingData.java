@@ -35,7 +35,7 @@ public class SortingData {
         return names;
     }
 
-    public static ArrayList<Object[]> getLcenceTotals() throws SQLException {
+    public static ArrayList<Object[]> getLicenceTotals() throws SQLException {
 
         productTotals.clear();
 
@@ -51,12 +51,11 @@ public class SortingData {
             productTotals.add(new String[] {String.valueOf(rs.getFloat("LicenseTotal")),
                     rs.getString("CustomerType"), rs.getString("InvoiceCode")});
         }
-        dam.closeConnection(rs, ps);
 
         return productTotals;
     }
 
-    public static ArrayList<Object[]> getEquipmentTotal() throws SQLException {
+    public static ArrayList<Object[]> getEquipmentTotals() throws SQLException {
 
         productTotals.clear();
 
@@ -72,12 +71,11 @@ public class SortingData {
                     rs.getString("CustomerType"), rs.getString("InvoiceCode")});
         }
 
-        dam.closeConnection(rs, ps);
 
         return productTotals;
     }
 
-    public static ArrayList<Object[]> getConsultationTotal() throws SQLException {
+    public static ArrayList<Object[]> getConsultationTotals() throws SQLException {
 
         productTotals.clear();
 
@@ -99,5 +97,41 @@ public class SortingData {
         return productTotals;
     }
 
+    public static ArrayList<String> getInvoiceCodes() throws SQLException {
 
+        ArrayList<String> invoiceCodes = new ArrayList<String>();
+
+        String query = "SELECT DISTINCT InvoiceCode from Invoices;";
+
+        PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            invoiceCodes.add(rs.getString("InvoiceCode"));
+        }
+
+        return invoiceCodes;
+    }
+
+    public static ArrayList<String[]> getCustomerTypes() throws SQLException {
+
+        ArrayList<String[]> customerTypes = new ArrayList<String[]>();
+
+        String query = "SELECT DISTINCT CustomerType, InvoiceCode, PersonLastName, PersonFirstName"
+                + " FROM Customers JOIN Invoices"
+                + " ON Invoices.CustomerID = Customers.CustomerID JOIN Persons"
+                + " ON Persons.PersonID = Invoices.PersonID;";
+
+        PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            customerTypes.add(new String[] {rs.getString("CustomerType"),
+                    rs.getString("InvoiceCode"), rs.getString("PersonLastName"), rs.getString("PersonFirstName")});
+        }
+
+        dam.closeConnection(rs, ps);
+
+        return customerTypes;
+    }
 }
