@@ -7,21 +7,6 @@ import org.json.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/*
-Invoices structured like so
-Invoice Number
-Salesperson: name
-Customer Info:
-    name, customer code
-    address
-Code  Item  Fees  Total
-~~~
-~~~
-Sub-Total
-Compliance Fee
-Taxes
-Total
- */
 public class InvoiceDataFile extends DataFile{
 
     private DataFieldController dfc = new DataFieldController();
@@ -61,6 +46,7 @@ public class InvoiceDataFile extends DataFile{
         this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
     }
 
+    //for flat file
     private JSONArray convertToJSON(ArrayList<String[]> fileArray) {
         for(int counter = 1; counter <= this.numberOfRecords; counter++) {
             tokenArray = fileArray.get(counter);
