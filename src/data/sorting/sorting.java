@@ -5,32 +5,24 @@ import data.controllers.SortingController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Sorting implements Comparable<String> {
+public class Sorting {
 
-    @Override
-    public int compareTo(String s) {
-        int result = this.compareTo(s);
-
-        if(result != 0) {
-            return result;
-        }
-
-        return 0;
-    }
-
-    private void sortByCustomer() throws SQLException {
+    public ArrayList<String[]> sortByCustomer() throws SQLException {
         ArrayList<String[]> names = SortingController.getNames();
-        String[] namesConcat = new String[names.size()];
-        for(String[] i : names) {
-            namesConcat[names.lastIndexOf(i)] = i[0] + i[1  ];
-        }
 
-        for(int i = 0; i < namesConcat.length; i++) {
+        for(int i = 0; i < names.size(); i++) {
             int min = i;
-            for(int j = i + 1; j < namesConcat.length; j ++) {
-                if(namesConcat.compareTo())
+            for(int j = i + 1; j < names.size(); j ++) {
+                System.out.println(j);
+                if(names.get(j)[0].compareTo(names.get(i)[0]) < 0) {
+                    min = j;
+                }
             }
+            String[] tmp = names.get(i);
+            names.set(i, names.get(min));
+            names.set(min, tmp);
         }
+        return names;
     }
 
     private void sortByTotal() {
