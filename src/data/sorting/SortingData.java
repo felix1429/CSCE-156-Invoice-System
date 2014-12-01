@@ -92,7 +92,6 @@ public class SortingData {
                     rs.getString("CustomerType"), rs.getString("InvoiceCode")});
         }
 
-        dam.closeConnection(rs, ps);
 
         return productTotals;
     }
