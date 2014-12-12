@@ -67,6 +67,21 @@ public class DatabaseAccessModel {
         return ps;
     }
 
+    public PreparedStatement prepareStatement(String query, Boolean isString, Object args[]) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(query);
+        int counter = 1;
+        for(Object o : args) {
+            try {
+                ps.setString(counter, (String)o);
+            } catch (ClassCastException exp) {
+                System.out.println("Error parsing as String");
+            }
+            counter++;
+        }
+        System.out.println(ps.toString());
+        return ps;
+    }
+
     public void closeConnection(ResultSet rs, PreparedStatement ps) throws SQLException {
         rs.close();
         ps.close();

@@ -1,6 +1,7 @@
 package data.files;
 
 import com.cinco.InvoiceData;
+import data.controllers.JSONController;
 import data.sorting.Sorting;
 import data.sorting.SortingData;
 
@@ -17,13 +18,16 @@ public class DataConverter {
     }
 
     public void testStuff() throws SQLException {
-        Sorting s = new Sorting();
-        ArrayList<String[]> a = s.sortByTotal();
-        for(String[] i : a) {
-            for(String j : i) {
-                System.out.print(j + " ");
-            }
-            System.out.println(" ");
-        }
+
+        JSONController j = new JSONController();
+        j.productsDataToJSON();
+//        Sorting s = new Sorting();
+//        ArrayList<String[]> a = s.sortByTotal();
+//        for(String[] i : a) {
+//            for(String j : i) {
+//                System.out.print(j + " ");
+//            }
+//            System.out.println(" ");
+//        }
     }
 }

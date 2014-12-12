@@ -1,6 +1,9 @@
 package com.cinco;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import data.databaseModels.DatabaseAccessModel;
 
 /**
@@ -425,13 +428,13 @@ public class InvoiceData {
 		}
 
 		if(invoiceID != null && found) {
-			//TODO: make int product codes go in as strings
 			query = "INSERT INTO Invoices "
 					+ "(InvoiceCode,CustomerID,PersonID,ProductID,NumberOfUnits,NumberOfHours,BeginDate,EndDate) "
 					+ "VALUES(?,NULL,NULL,(SELECT ProductID FROM Products WHERE ProductCode = ?),"
 					+ "0,0,?,?);";
 
-			ps = dam.prepareStatement(query, new Object[] {invoiceCode, productCode, startDate, endDate});
+			Boolean isString = true;
+			ps = dam.prepareStatement(query, isString, new Object[] {invoiceCode, productCode, startDate, endDate});
 			ps.executeUpdate();
 
 
@@ -533,5 +536,49 @@ public class InvoiceData {
 
 		}
 		dam.closeConnection(rs, ps);
+	}
+
+	public ArrayList<HashMap<String, String>> getProductData() throws SQLException {
+
+		String query = "SELECT * FROM Products";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+		ResultSet rs = ps.executeQuery();
+
+		ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
+		while(rs.next()) {
+			HashMap<String, String> product = new HashMap<String, String>();
+			product.put("ProductID", rs.getString("ProductID"));
+			product.put("ProductCode", rs.getString("ProductCode"));
+			product.put("ProductType", rs.getString("ProductType"));
+			product.put("ProductName", rs.getString("ProductName"));
+			product.put("PersonID", rs.getString("PersonID"));
+			product.put("PricePerUnit", String.valueOf(rs.getFloat("PricePerUnit")));
+			product.put("ProductFee", String.valueOf(rs.getFloat("ProductFee")));
+			product.put("PricePerHour", String.valueOf(rs.getFloat("PricePerHour")));
+			product.put("PricePerYear", String.valueOf(rs.getFloat("PricePerYear")));
+			results.add(product);
+		}
+
+		return results;
+	}
+
+	public HashMap<String, String> getCustomerFromID(int personID) throws SQLException {
+
+		String query = "SELECT * FROM Customers WHERE PersonID = ?";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {personID});
+		ResultSet rs = ps.executeQuery();
+
+		HashMap<String, String> person = new HashMap<String, String>();
+		while(rs.next()) {
+			person.put("PersonID", String.valueOf(rs.getInt("PersonID")));
+			person.put("PersonCode", rs.getString("PersonCode"));
+			person.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
+			person.put("PersonLastName", rs.getString("PersonLastName"));
+			person.put("PersonFirstName", rs.getString("PersonFirstName"));
+		}
+
+		return person;
 	}
 }
