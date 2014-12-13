@@ -17,6 +17,14 @@ public class JSONController {
         return Integer.parseInt(arrList[0]);
     }
 
+    private static String removeTrailingZeros(double d) {
+        return String.valueOf(d).replaceAll("[0]*$", "").replaceAll(".$", "");
+    }
+
+    private static String removeTrailingZeros(float d) {
+        return String.valueOf(d).replaceAll("[0]*$", "").replaceAll(".$", "");
+    }
+
     //splits line into json tokens
     public String[] parseToTokens(String line) {
         return line.split(";");
@@ -42,7 +50,7 @@ public class JSONController {
         tempJObject.put("firstName", data.get("PersonFirstName"));
         tempJObject.put("personCode", data.get("PersonCode"));
         tempJObject.put("address",
-                getAddressJSONFromData(i.getPersonAddressFromID(Integer.parseInt(data.get("PersAddressID"))));
+                getAddressJSONFromData(i.getPersonAddressFromID(Integer.parseInt(data.get("PersAddressID")))));
         return tempJObject;
     }
 
@@ -60,6 +68,8 @@ public class JSONController {
                 HashMap<String, String> customer =
                         i.getCustomerPersonFromID(Integer.parseInt(product.get("PersonID")));
                 tempJObject.put("consultant", getPersonJSONFromData(customer));
+                tempJObject.put("name", product.get("ProductName"));
+                tempJObject.put("hourlyFee", product.get("PricePerHour"));
             } else if(type.equals("L")) {
                 tempJObject.put("serviceFee", product.get("ProductFee"));
                 tempJObject.put("annualLicenseFee", product.get("PricePerYear"));

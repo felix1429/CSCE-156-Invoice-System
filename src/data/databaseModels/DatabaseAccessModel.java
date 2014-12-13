@@ -50,15 +50,16 @@ public class DatabaseAccessModel {
         int counter = 1;
         for(Object o : args) {
             try {
-                int i = Integer.parseInt((String)o);
-//                System.out.println("int   " + i);
+                System.out.println(o);
+                int i = Integer.parseInt(String.valueOf(o));
+                System.out.println("int   " + i);
                 ps.setInt(counter, i);
             } catch (NumberFormatException e) {
-//                System.out.println("String  " + o);
-                ps.setString(counter, (String)o);
+                System.out.println("String  " + o);
+                ps.setString(counter, String.valueOf(o));
             } catch (ClassCastException exp) {
                 Float f = new Float(o.toString());
-//                System.out.println("Float  " + f);
+                System.out.println("Float  " + f);
                 ps.setFloat(counter, f);
             }
             counter++;

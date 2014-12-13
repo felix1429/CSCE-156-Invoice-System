@@ -565,13 +565,14 @@ public class InvoiceData {
 
 	public HashMap<String, String> getCustomerPersonFromID(int personID) throws SQLException {
 
-		String query = "SELECT * FROM Customers WHERE PersonID = ?";
+		String query = "SELECT * FROM Persons WHERE PersonID = ?";
 
 		PreparedStatement ps = dam.prepareStatement(query, new Object[] {personID});
 		ResultSet rs = ps.executeQuery();
 
 		HashMap<String, String> person = new HashMap<String, String>();
 		while(rs.next()) {
+			System.out.println(String.valueOf(rs.getInt("PersonID")));
 			person.put("PersonID", String.valueOf(rs.getInt("PersonID")));
 			person.put("PersonCode", rs.getString("PersonCode"));
 			person.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
