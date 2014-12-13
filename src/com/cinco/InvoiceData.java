@@ -563,7 +563,7 @@ public class InvoiceData {
 		return results;
 	}
 
-	public HashMap<String, String> getCustomerFromID(int personID) throws SQLException {
+	public HashMap<String, String> getCustomerPersonFromID(int personID) throws SQLException {
 
 		String query = "SELECT * FROM Customers WHERE PersonID = ?";
 
@@ -580,5 +580,25 @@ public class InvoiceData {
 		}
 
 		return person;
+	}
+
+	public HashMap<String, String> getPersonAddressFromID(int persAddressID) throws SQLException {
+
+		String query = "SELECT * FROM PersonAddress WHERE PersAddressID = ?";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {persAddressID});
+		ResultSet rs = ps.executeQuery();
+
+		HashMap<String, String> customerAddress = new HashMap<String, String>();
+		while(rs.next()) {
+			customerAddress.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
+			customerAddress.put("Street", rs.getString("Street"));
+			customerAddress.put("City", rs.getString("City"));
+			customerAddress.put("State", rs.getString("CityState"));
+			customerAddress.put("ZipCode", rs.getString("ZipCode"));
+			customerAddress.put("Country", rs.getString("Country"));
+		}
+
+		return customerAddress;
 	}
 }

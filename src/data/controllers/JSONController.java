@@ -10,6 +10,8 @@ import java.util.HashMap;
 
 public class JSONController {
 
+    InvoiceData i = new InvoiceData();
+
     //internal method only to be called in dataFile constructor, ensuring that correct value is returned
     public int getNumberOfRecords(String arrList[]) throws IOException {
         return Integer.parseInt(arrList[0]);
@@ -24,12 +26,27 @@ public class JSONController {
         return "{\n\"" + JSONName + "\": " + finalString + "}";
     }
 
-    public JSONObject getPersonJSONFromData(HashMap<String, String> data) {
+    public JSONObject getAddressJSONFromData(HashMap<String, String> personAddress) {
+        JSONObject address = new JSONObject();
+        address.put("zip", personAddress.get("ZipCode"));
+        address.put("country", personAddress.get("Country"));
+        address.put("city", personAddress.get("City"));
+        address.put("street", personAddress.get("Street"));
+        address.put("state", personAddress.get("State"));
+        return address;
+    }
 
+    public JSONObject getPersonJSONFromData(HashMap<String, String> data) throws SQLException {
+        JSONObject tempJObject = new JSONObject();
+        tempJObject.put("lastName", data.get("PersonLastName"));
+        tempJObject.put("firstName", data.get("PersonFirstName"));
+        tempJObject.put("personCode", data.get("PersonCode"));
+        tempJObject.put("address",
+                getAddressJSONFromData(i.getPersonAddressFromID(Integer.parseInt(data.get("PersAddressID"))));
+        return tempJObject;
     }
 
     public JSONArray productsDataToJSON() throws SQLException {
-        InvoiceData i = new InvoiceData();
         JSONArray JSONArrayList = new JSONArray();
         ArrayList<HashMap<String, String>> results = i.getProductData();
         for(HashMap<String, String> product : results) {
@@ -40,8 +57,9 @@ public class JSONController {
             if(type.equals("E")) {
                 tempJObject.put("pricePerUnit", product.get("PricePerUnit"));
             } else if(type.equals("C")) {
-                tempJObject.put("consultant",
-                        getPersonJSONFromData(i.getCustomerFromID(Integer.parseInt(product.get("PersonID")))));
+                HashMap<String, String> customer =
+                        i.getCustomerPersonFromID(Integer.parseInt(product.get("PersonID")));
+                tempJObject.put("consultant", getPersonJSONFromData(customer));
             } else if(type.equals("L")) {
                 tempJObject.put("serviceFee", product.get("ProductFee"));
                 tempJObject.put("annualLicenseFee", product.get("PricePerYear"));
