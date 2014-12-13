@@ -602,4 +602,19 @@ public class InvoiceData {
 
 		return customerAddress;
 	}
+
+	public ArrayList<String> getEmailForPersonID(int personID) throws SQLException {
+
+		String query = "Select * FROM Email WHERE PersonID = ?";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {personID});
+		ResultSet rs = ps.executeQuery();
+
+		ArrayList<String> emails = new ArrayList<String>();
+		while(rs.next()) {
+			emails.add(rs.getString("EmailAddress"));
+		}
+
+		return emails;
+	}
 }

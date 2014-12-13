@@ -49,6 +49,10 @@ public class JSONController {
         tempJObject.put("lastName", data.get("PersonLastName"));
         tempJObject.put("firstName", data.get("PersonFirstName"));
         tempJObject.put("personCode", data.get("PersonCode"));
+        ArrayList<String> emails = i.getEmailForPersonID(Integer.parseInt(data.get("PersonID")));
+        if(!emails.contains(null)) {
+            tempJObject.put("emails", emails);
+        }
         tempJObject.put("address",
                 getAddressJSONFromData(i.getPersonAddressFromID(Integer.parseInt(data.get("PersAddressID")))));
         return tempJObject;
