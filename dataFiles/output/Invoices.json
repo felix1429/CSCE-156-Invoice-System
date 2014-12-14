@@ -1,0 +1,282 @@
+{
+"invoices": [
+   {
+      "salesperson": {
+         "lastName": "Eccleston",
+         "personCode": "nwdoc1",
+         "address": {
+            "zip": "10451",
+            "street": "1 E 161st St",
+            "state": "NY",
+            "country": "USA",
+            "city": "Bronx"
+         },
+         "emails": ["newguy@whovian.com"],
+         "firstName": "Chris"
+      },
+      "invoice": "INV001",
+      "equipment": {
+         "pricePerUnit": "2500.0",
+         "name": "Cinco MIDI Organizer",
+         "code": "b29e",
+         "numberOfUnits": "2"
+      },
+      "license": {
+         "serviceFee": "2000.00",
+         "annualLicenseFee": "12000.00",
+         "name": "Cinco Long Distance Service",
+         "endDate": "2014-12-31",
+         "code": "90fa",
+         "beginDate": "2013-01-15"
+      },
+      "customer": {
+         "address": {
+            "zip": "10453",
+            "street": "184 Marvel Way",
+            "state": "NY",
+            "country": "USA",
+            "city": "New York"
+         },
+         "primaryContact": {
+            "lastName": "Castro",
+            "personCode": "944c",
+            "address": {
+               "zip": "60613",
+               "street": "1060 West Addison Street",
+               "state": "IL",
+               "country": "USA",
+               "city": "Chicago"
+            },
+            "emails": [
+               "scastro@cubs.com",
+               "starlin_castro13@gmail.com"
+            ],
+            "firstName": "Starlin"
+         },
+         "name": "Stark Industries",
+         "customerCode": "C002",
+         "type": "C"
+      }
+   },
+   {
+      "consultation": {
+         "hourlyFee": "25.00",
+         "name": "Cinco-Fone Training",
+         "consultant": {
+            "lastName": "Gekko",
+            "personCode": "aef1",
+            "address": {
+               "zip": "10005-0012",
+               "street": "1 Wall Street",
+               "state": "NY",
+               "country": "USA",
+               "city": "New York"
+            },
+            "firstName": "Gordon"
+         },
+         "code": "3289",
+         "billableHours": "10"
+      },
+      "salesperson": {
+         "lastName": "Smith",
+         "personCode": "wrddoc",
+         "address": {
+            "zip": "60616",
+            "street": "333 W 35th St",
+            "state": "IL",
+            "country": "USA",
+            "city": "Chicago"
+         },
+         "emails": [
+            "msmith@who.com",
+            "thedoc@cse.unl.edu"
+         ],
+         "firstName": "Matt"
+      },
+      "invoice": "INV002",
+      "equipment": {
+         "pricePerUnit": "124.99",
+         "name": "Cinco-Fone",
+         "code": "ff23",
+         "numberOfUnits": "10"
+      },
+      "customer": {
+         "address": {
+            "zip": "68588-0115",
+            "street": "259 Avery Hall",
+            "state": "NE",
+            "country": "USA",
+            "city": "Lincoln"
+         },
+         "primaryContact": {
+            "lastName": "Baker",
+            "personCode": "231",
+            "address": {
+               "zip": "M5V 1J1",
+               "street": "1 Blue Jays Way",
+               "state": "ON",
+               "country": "Canada",
+               "city": "Toronto"
+            },
+            "emails": [
+               "famousdoc@who.com",
+               "tbaker@cse.unl.edu",
+               "mostfamous@whovian.com",
+               "thedoctor@bbc.com"
+            ],
+            "firstName": "Tom"
+         },
+         "name": "University of Nebraska-Lincoln",
+         "customerCode": "C001",
+         "type": "G"
+      },
+      "equipment1": {
+         "pricePerUnit": "5000.00",
+         "name": "Cinco Video Cube Playback System",
+         "code": "1239",
+         "numberOfUnits": "1"
+      }
+   },
+   {
+      "salesperson": {
+         "lastName": "Tennant",
+         "personCode": "2ndbestd",
+         "address": {
+            "zip": "60611",
+            "street": "700 E Grand Ave",
+            "state": "IL",
+            "country": "USA",
+            "city": "Chicago"
+         },
+         "emails": [
+            "actor@shakespeare.com",
+            "tdavid@unl.edu"
+         ],
+         "firstName": "David"
+      },
+      "invoice": "INV003",
+      "equipment": {
+         "pricePerUnit": "124.99",
+         "name": "Cinco-Fone",
+         "code": "ff23",
+         "numberOfUnits": "10"
+      },
+      "license": {
+         "serviceFee": "2000.00",
+         "annualLicenseFee": "12000.00",
+         "name": "Cinco Long Distance Service",
+         "endDate": "2014-12-31",
+         "code": "90fa",
+         "beginDate": "2013-01-15"
+      },
+      "customer": {
+         "address": {
+            "zip": "60601",
+            "street": "1060 West Addison",
+            "state": "IL",
+            "country": "USA",
+            "city": "Chicago"
+         },
+         "primaryContact": {
+            "lastName": "Ehrmantraut",
+            "personCode": "bbchar",
+            "address": {
+               "zip": "87105",
+               "street": "800 West 7th Street",
+               "state": "NM",
+               "country": "USA",
+               "city": "Albuquerque"
+            },
+            "firstName": "Kaylee"
+         },
+         "name": "Vandelay Industries",
+         "customerCode": "C005",
+         "type": "C"
+      }
+   },
+   {
+      "consultation": {
+         "hourlyFee": "150.00",
+         "name": "Server System Setup",
+         "consultant": {
+            "lastName": "Hartnell",
+            "personCode": "321nd",
+            "address": {
+               "zip": "60613",
+               "street": "1060 West Addison Street",
+               "state": "IL",
+               "country": "USA",
+               "city": "Chicago"
+            },
+            "emails": [
+               "whartnell@doctors.com",
+               "dr@who.com"
+            ],
+            "firstName": "William"
+         },
+         "code": "782g",
+         "billableHours": "10"
+      },
+      "salesperson": {
+         "lastName": "Tennant",
+         "personCode": "2ndbestd",
+         "address": {
+            "zip": "60611",
+            "street": "700 E Grand Ave",
+            "state": "IL",
+            "country": "USA",
+            "city": "Chicago"
+         },
+         "emails": [
+            "actor@shakespeare.com",
+            "tdavid@unl.edu"
+         ],
+         "firstName": "David"
+      },
+      "invoice": "INV004",
+      "license": {
+         "serviceFee": "0.00",
+         "annualLicenseFee": "35000.00",
+         "name": "Cloud SQL Hosting",
+         "endDate": "2018-12-31",
+         "code": "3294",
+         "beginDate": "2014-01-01"
+      },
+      "customer": {
+         "address": {
+            "zip": "10453",
+            "street": "184 Marvel Way",
+            "state": "NY",
+            "country": "USA",
+            "city": "New York"
+         },
+         "primaryContact": {
+            "lastName": "Castro",
+            "personCode": "944c",
+            "address": {
+               "zip": "60613",
+               "street": "1060 West Addison Street",
+               "state": "IL",
+               "country": "USA",
+               "city": "Chicago"
+            },
+            "emails": [
+               "scastro@cubs.com",
+               "starlin_castro13@gmail.com"
+            ],
+            "firstName": "Starlin"
+         },
+         "name": "Stark Industries",
+         "customerCode": "C002",
+         "type": "C"
+      },
+      "license1": {
+         "serviceFee": "350.00",
+         "annualLicenseFee": "1200.00",
+         "name": "Domain registration",
+         "endDate": "2018-12-31",
+         "code": "3295",
+         "beginDate": "2014-01-01"
+      }
+   }
+]}
