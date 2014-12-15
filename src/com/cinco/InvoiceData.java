@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.applet2.AppletParameters;
 import data.databaseModels.DatabaseAccessModel;
 
 /**
@@ -16,9 +17,7 @@ public class InvoiceData {
 	private static DatabaseAccessModel dam = new DatabaseAccessModel(
 			"jdbc:mysql://cse.unl.edu/thennig", "thennig", "Z6nzb9");
 
-	/**
-	 * Method that removes every person record from the database
-	 */
+
 	public static void removeAllPersons() throws SQLException {
 
 		String query = "DELETE FROM Persons";
@@ -28,12 +27,7 @@ public class InvoiceData {
 
 		dam.closeConnection(ps);
 	}
-
-	/**
-	 * Removes the person record from the database corresponding to the
-	 * provided personCode
-	 * @param personCode
-	 */
+	
 	public static void removePerson(String personCode) throws SQLException {
 
 		String query = "DELETE FROM Persons where PersonCode = ?;";
@@ -44,17 +38,6 @@ public class InvoiceData {
 		dam.closeConnection(ps);
 	}
 	
-	/**
-	 * Method to add a person record to the database with the provided data.
-	 * @param personCode
-	 * @param firstName
-	 * @param lastName
-	 * @param street
-	 * @param city
-	 * @param state
-	 * @param zip
-	 * @param country
-	 */
 	public static void addPerson(String personCode, String firstName, String lastName,
 			String street, String city, String state, String zip, String country) throws SQLException {
 
@@ -87,12 +70,6 @@ public class InvoiceData {
 		dam.closeConnection(rs, ps);
 	}
 	
-	/**
-	 * Adds an email record corresponding person record corresponding to the
-	 * provided <code>personCode</code>
-	 * @param personCode
-	 * @param email
-	 */
 	public static void addEmail(String personCode, String email) throws SQLException {
 
 		String query = "INSERT INTO Email (PersonID, EmailAddress) VALUES "
@@ -104,9 +81,6 @@ public class InvoiceData {
 		dam.closeConnection(ps);
 	}
 	
-	/**
-	 * Method that removes every customer record from the database
-	 */
 	public static void removeAllCustomers() throws SQLException {
 
 		String query = "DELETE FROM Customers";
@@ -149,10 +123,7 @@ public class InvoiceData {
 
 		dam.closeConnection(rs, ps);
 	}
-
-	/**
-	 * Removes all product records from the database
-	 */
+	
 	public static void removeAllProducts() throws SQLException {
 
 		String query = "DELETE FROM Products";
@@ -162,12 +133,7 @@ public class InvoiceData {
 
 		dam.closeConnection(ps);
 	}
-
-	/**
-	 * Removes a particular product record from the database corresponding to the
-	 * provided <code>productCode</code>
-	 * @param productCode
-	 */
+	
 	public static void removeProduct(String productCode) throws SQLException {
 
 		String query = "DELETE FROM Products where ProductCode = ?;";
@@ -177,11 +143,7 @@ public class InvoiceData {
 
 		dam.closeConnection(ps);
 	}
-
-	/**
-	 * Adds an equipment record to the database with the
-	 * provided data.  
-	 */
+	
 	public static void addEquipment(String productCode, String name, Double pricePerUnit) throws SQLException {
 
 		Integer productID = null;
@@ -208,10 +170,6 @@ public class InvoiceData {
 		dam.closeConnection(rs, ps);
 	}
 	
-	/**
-	 * Adds an license record to the database with the
-	 * provided data.  
-	 */
 	public static void addLicense(String productCode, String name, double serviceFee, double annualFee) throws SQLException {
 
 		Integer productID = null;
@@ -239,11 +197,7 @@ public class InvoiceData {
 		dam.closeConnection(rs, ps);
 
 	}
-
-	/**
-	 * Adds an consultation record to the database with the
-	 * provided data.  
-	 */
+	
 	public static void addConsultation(String productCode, String name, String consultantPersonCode, Double hourlyFee) throws SQLException {
 
 		Integer productID = null;
@@ -272,9 +226,6 @@ public class InvoiceData {
 
 	}
 	
-	/**
-	 * Removes all invoice records from the database
-	 */
 	public static void removeAllInvoices() throws SQLException {
 
 		String query = "DELETE FROM Invoices";
@@ -286,11 +237,6 @@ public class InvoiceData {
 
 	}
 	
-	/**
-	 * Removes the invoice record from the database corresponding to the
-	 * provided <code>invoiceCode</code>
-	 * @param invoiceCode
-	 */
 	public static void removeInvoice(String invoiceCode) throws SQLException {
 
 		String query = "DELETE FROM Invoices where InvoiceCode = ?;";
@@ -302,9 +248,6 @@ public class InvoiceData {
 
 	}
 	
-	/**
-	 * Adds an invoice record to the database with the given data.  
-	 */
 	public static void addInvoice(String invoiceCode, String customerCode, String salesPersonCode) throws SQLException {
 
 		Integer invoiceID = null;
@@ -334,11 +277,6 @@ public class InvoiceData {
 		dam.closeConnection(rs, ps);
 	}
 	
-	/**
-	 * Adds a particular equipment (corresponding to <code>productCode</code> to an 
-	 * invoice corresponding to the provided <code>invoiceCode</code> with the given
-	 * number of units
-	 */
 	public static void addEquipmentToInvoice(String invoiceCode, String productCode, int numUnits) throws SQLException {
 
 		Integer invoiceID = null;
@@ -402,11 +340,6 @@ public class InvoiceData {
 		dam.closeConnection(rs, ps);
 	}
 	
-	/**
-	 * Adds a particular equipment (corresponding to <code>productCode</code> to an 
-	 * invoice corresponding to the provided <code>invoiceCode</code> with the given
-	 * begin/end dates
-	 */
 	public static void addLicenseToInvoice(String invoiceCode, String productCode, String startDate, String endDate) throws SQLException {
 
 		Integer invoiceID = null;
@@ -469,12 +402,7 @@ public class InvoiceData {
 		}
 		dam.closeConnection(rs, ps);
 	}
-
-	/**
-	 * Adds a particular equipment (corresponding to <code>productCode</code> to an 
-	 * invoice corresponding to the provided <code>invoiceCode</code> with the given
-	 * number of billable hours.
-	 */
+	
 	public static void addConsultationToInvoice(String invoiceCode, String productCode, double numHours) throws SQLException {
 
 		Integer invoiceID = null;
@@ -563,7 +491,7 @@ public class InvoiceData {
 		return results;
 	}
 
-	public HashMap<String, String> getCustomerPersonFromID(int personID) throws SQLException {
+	public HashMap<String, String> getPersonFromID(int personID) throws SQLException {
 
 		String query = "SELECT * FROM Persons WHERE PersonID = ?";
 
@@ -572,7 +500,6 @@ public class InvoiceData {
 
 		HashMap<String, String> person = new HashMap<String, String>();
 		while(rs.next()) {
-			System.out.println(String.valueOf(rs.getInt("PersonID")));
 			person.put("PersonID", String.valueOf(rs.getInt("PersonID")));
 			person.put("PersonCode", rs.getString("PersonCode"));
 			person.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
@@ -590,9 +517,29 @@ public class InvoiceData {
 		PreparedStatement ps = dam.prepareStatement(query, new Object[] {persAddressID});
 		ResultSet rs = ps.executeQuery();
 
+		HashMap<String, String> personAddress = new HashMap<String, String>();
+		while(rs.next()) {
+			personAddress.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
+			personAddress.put("Street", rs.getString("Street"));
+			personAddress.put("City", rs.getString("City"));
+			personAddress.put("State", rs.getString("CityState"));
+			personAddress.put("ZipCode", rs.getString("ZipCode"));
+			personAddress.put("Country", rs.getString("Country"));
+		}
+
+		return personAddress;
+	}
+
+	public HashMap<String, String> getCustomerAddressFromID(int custAddressID) throws SQLException {
+
+		String query = "SELECT * FROM CustomerAddress WHERE CustAddressID = ?";
+		
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {custAddressID});
+		ResultSet rs = ps.executeQuery();
+		
 		HashMap<String, String> customerAddress = new HashMap<String, String>();
 		while(rs.next()) {
-			customerAddress.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
+			customerAddress.put("CustAddressID", String.valueOf(rs.getInt("CustAddressID")));
 			customerAddress.put("Street", rs.getString("Street"));
 			customerAddress.put("City", rs.getString("City"));
 			customerAddress.put("State", rs.getString("CityState"));
@@ -605,7 +552,7 @@ public class InvoiceData {
 
 	public ArrayList<String> getEmailForPersonID(int personID) throws SQLException {
 
-		String query = "Select * FROM Email WHERE PersonID = ?";
+		String query = "SELECT * FROM Email WHERE PersonID = ?";
 
 		PreparedStatement ps = dam.prepareStatement(query, new Object[] {personID});
 		ResultSet rs = ps.executeQuery();
@@ -616,5 +563,48 @@ public class InvoiceData {
 		}
 
 		return emails;
+	}
+
+	public ArrayList<HashMap<String, String>> getCustomerData() throws SQLException {
+
+		String query = "SELECT * FROM Customers";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+		ResultSet rs = ps.executeQuery();
+
+		ArrayList<HashMap<String, String>> customers = new ArrayList<HashMap<String, String>>();
+		while(rs.next()) {
+			HashMap<String, String> customer = new HashMap<String, String>();
+			customer.put("CustomerCode", rs.getString("CustomerCode"));
+			customer.put("CustAddressID", rs.getString("CustAddressID"));
+			customer.put("CustomerType", rs.getString("CustomerType"));
+			customer.put("PersonCode", rs.getString("PersonCode"));
+			customer.put("PersonID", rs.getString("PersonID"));
+			customer.put("CustomerName", rs.getString("CustomerName"));
+			customers.add(customer);
+		}
+
+		return customers;
+	}
+
+	public ArrayList<HashMap<String, String>> getPersonData() throws SQLException {
+
+		String query = "SELECT * FROM Persons";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+		ResultSet rs = ps.executeQuery();
+
+		ArrayList<HashMap<String, String>> persons = new ArrayList<HashMap<String, String>>();
+		while(rs.next()) {
+			HashMap<String, String> person = new HashMap<String, String>();
+			person.put("PersonID", String.valueOf(rs.getInt("PersonID")));
+			person.put("PersonCode", rs.getString("PersonCode"));
+			person.put("PersAddressID", String.valueOf(rs.getInt("PersAddressID")));
+			person.put("PersonLastName", rs.getString("PersonLastName"));
+			person.put("PersonFirstName", rs.getString("PersonFirstName"));
+			persons.add(person);
+		}
+
+		return persons;
 	}
 }

@@ -20,7 +20,7 @@ public class DataConverter {
     public void testStuff() throws SQLException {
 
         JSONController j = new JSONController();
-        System.out.println(j.productsDataToJSON().toString(2));
+        System.out.println(j.createJSONShell("persons", j.personsDataToJSON().toString(4)));
 //        Sorting s = new Sorting();
 //        ArrayList<String[]> a = s.sortByTotal();
 //        for(String[] i : a) {

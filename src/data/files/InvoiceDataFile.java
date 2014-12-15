@@ -43,7 +43,6 @@ public class InvoiceDataFile extends DataFile{
         this.JSONName = "invoices";
         this.finalJSON = this.convertToJSON((fileArray));
         this.finalJSONString = this.finalJSON.toString(3);
-        System.out.println(this.finalJSONString);
         this.outerJSONObject = jHandler.createJSONShell(this.JSONName, this.finalJSONString);
     }
 
