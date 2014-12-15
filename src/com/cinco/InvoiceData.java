@@ -3,6 +3,7 @@ package com.cinco;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.sun.applet2.AppletParameters;
 import data.databaseModels.DatabaseAccessModel;
@@ -491,6 +492,75 @@ public class InvoiceData {
 		return results;
 	}
 
+	public HashMap<String, String> getProductDataFromCode(String productCode) throws SQLException {
+
+		String query = "SELECT * FROM Products WHERE ProductID = ?";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {productCode});
+		ResultSet rs = ps.executeQuery();
+
+		HashMap<String, String> results = new HashMap<String, String>();
+		while(rs.next()) {
+			results.put("ProductID", rs.getString("ProductID"));
+			results.put("ProductCode", rs.getString("ProductCode"));
+			results.put("ProductType", rs.getString("ProductType"));
+			results.put("ProductName", rs.getString("ProductName"));
+			results.put("PersonID", rs.getString("PersonID"));
+			results.put("PricePerUnit", String.valueOf(rs.getFloat("PricePerUnit")));
+			results.put("ProductFee", String.valueOf(rs.getFloat("ProductFee")));
+			results.put("PricePerHour", String.valueOf(rs.getFloat("PricePerHour")));
+			results.put("PricePerYear", String.valueOf(rs.getFloat("PricePerYear")));
+		}
+
+		return results;
+	}
+	
+	//list of invoices grouped by invoice code in list containing map of product codes values
+	public HashMap<String, ArrayList<HashMap<String, String>>> getInvoiceData() throws SQLException {
+
+		String query = "SELECT * FROM Invoices";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {});
+		ResultSet rs = ps.executeQuery();
+
+		HashMap<String, ArrayList<HashMap<String, String>>> invoices =
+				new HashMap<String, ArrayList<HashMap<String, String>>>();
+		while(rs.next()) {
+			if(!invoices.containsKey(rs.getString("InvoiceCode"))) {
+				ArrayList<HashMap<String, String>> products =
+						getProductsFromInvoiceCode(rs.getString("InvoiceCode"));
+				invoices.put(rs.getString("InvoiceCode"), products);
+			}
+		}
+
+		return invoices;
+	}
+
+	public ArrayList<HashMap<String, String>> getProductsFromInvoiceCode(String code) throws SQLException {
+
+		String query = "SELECT * FROM Invoices WHERE InvoiceCode = ?";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {code});
+		ResultSet rs = ps.executeQuery();
+
+		ArrayList<HashMap<String, String>> products = new ArrayList<HashMap<String, String>>();
+		while(rs.next()) {
+			HashMap<String, String> product = new HashMap<String, String>();
+			product.put("ProductID", rs.getString("ProductID"));
+			product.put("InvoiceCode", rs.getString("InvoiceCode"));
+			product.put("CustomerID", rs.getString("CustomerID"));
+			product.put("PersonID", rs.getString("PersonID"));
+			product.put("ProductID", rs.getString("ProductID"));
+			product.put("NumberOfUnits", rs.getString("NumberOfUnits"));
+			product.put("NumberOfHours", rs.getString("NumberOfHours"));
+			product.put("BeginDate", String.valueOf(rs.getDate("BeginDate")));
+			product.put("EndDate", String.valueOf(rs.getDate("EndDate")));
+			products.add(product);
+		}
+
+		return products;
+	}
+
 	public HashMap<String, String> getPersonFromID(int personID) throws SQLException {
 
 		String query = "SELECT * FROM Persons WHERE PersonID = ?";
@@ -585,6 +655,26 @@ public class InvoiceData {
 		}
 
 		return customers;
+	}
+
+	public HashMap<String, String> getCustomerDataFromID(int id) throws SQLException {
+
+		String query = "SELECT * FROM Customers WHERE CustomerID = ?";
+
+		PreparedStatement ps = dam.prepareStatement(query, new Object[] {id});
+		ResultSet rs = ps.executeQuery();
+
+		HashMap<String, String> customer = new HashMap<String, String>();
+		while(rs.next()) {
+			customer.put("CustomerCode", rs.getString("CustomerCode"));
+			customer.put("CustAddressID", rs.getString("CustAddressID"));
+			customer.put("CustomerType", rs.getString("CustomerType"));
+			customer.put("PersonCode", rs.getString("PersonCode"));
+			customer.put("PersonID", rs.getString("PersonID"));
+			customer.put("CustomerName", rs.getString("CustomerName"));
+		}
+
+		return customer;
 	}
 
 	public ArrayList<HashMap<String, String>> getPersonData() throws SQLException {

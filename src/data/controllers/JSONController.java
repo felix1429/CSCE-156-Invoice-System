@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JSONController {
 
@@ -99,11 +100,11 @@ public class JSONController {
     public JSONObject getCustomerJSONFromData(HashMap<String, String> customer) throws SQLException {
         JSONObject tempJObject = new JSONObject();
         tempJObject.put("customerCode", customer.get("CustomerCode"));
-        tempJObject.put("customerType", customer.get("CustomerType"));
+        tempJObject.put("type", customer.get("CustomerType"));
         HashMap<String, String> primaryContact =
                 i.getPersonFromID(Integer.parseInt(customer.get("PersonID")));
         tempJObject.put("primaryContact", getPersonJSONFromData(primaryContact));
-        tempJObject.put("name", customer.get("Name"));
+        tempJObject.put("name", customer.get("CustomerName"));
         HashMap<String, String> address =
                 i.getCustomerAddressFromID(Integer.parseInt(customer.get("CustAddressID")));
         tempJObject.put("address", getAddressJSONFromData(address));
@@ -118,4 +119,44 @@ public class JSONController {
         }
         return JSONArrayList;
     }
+
+    public JSONObject getInvoiceJSONFromData(ArrayList<HashMap<String, String>> products) throws SQLException {
+        JSONObject tempJObject = new JSONObject();
+        for(HashMap<String, String> product : products) {
+            HashMap<String, String> productData = i.getProductDataFromCode(product.get("ProductID"));
+            tempJObject.put("invoice", product.get("InvoiceCode"));
+            JSONObject j =  getProductJSONFromData(productData);
+            String type = productData.get("ProductType");
+            if(type.equals("E")) {
+                type = "equipment";
+                j.put("numberOfUnits", product.get("NumberOfUnits"));
+            }else if(type.equals("L")) {
+                j.put("beginDate", product.get("BeginDate"));
+                j.put("endDate", product.get("EndDate"));
+                type = "license";
+            }else if(type.equals("C")) {
+                j.put("billableHours", product.get("NumberOfHours"));
+                type = "consultation";
+            }
+            tempJObject.put(type, j);
+            HashMap<String, String> salesperson =
+                    i.getPersonFromID(Integer.parseInt(product.get("PersonID")));
+            tempJObject.put("salesperson", getPersonJSONFromData(salesperson));
+            tempJObject.put("invoice", product.get("InvoiceCode"));
+            HashMap<String, String> customer =
+                    i.getCustomerDataFromID(Integer.parseInt(product.get("CustomerID")));
+            tempJObject.put("customer", getCustomerJSONFromData(customer));
+        }
+        return tempJObject;
+    }
+
+    public JSONArray invoicesDataToJSON() throws SQLException {
+        JSONArray JSONArrayList = new JSONArray();
+        HashMap<String, ArrayList<HashMap<String, String>>> data = i.getInvoiceData();
+        for(Map.Entry<String, ArrayList<HashMap<String, String>>> invoice : data.entrySet()) {
+            JSONArrayList.put(getInvoiceJSONFromData(invoice.getValue()));
+        }
+        return JSONArrayList;
+    }
+
 }
