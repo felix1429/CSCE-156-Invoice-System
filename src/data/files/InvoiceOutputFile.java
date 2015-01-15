@@ -108,10 +108,9 @@ public class InvoiceOutputFile {
         }
         finalSummaryOutput += ic.addLine(ic.generateRepeatString("=", 137));
         finalSummaryOutput += "TOTALS" + ic.generateRepeatString(" ", 84) + "$ " + ic.putTwoZeros(endSubtotal);
-        System.out.println(15 - (ic.putTwoZeros(endFees).length()));
-        finalSummaryOutput += " $" + ic.generateRepeatString(" ", 10 - (String.valueOf(ic.roundToTwo(endFees)).length()))
+        finalSummaryOutput += "  $" + ic.generateRepeatString(" ", 10 - (String.valueOf(ic.roundToTwo(endFees)).length()))
                 + ic.roundToTwo(endFees);
-        finalSummaryOutput += " $" + ic.generateRepeatString(" ", 11 - (String.valueOf(ic.roundToTwo(endTaxes)).length()))
+        finalSummaryOutput += " $" + ic.generateRepeatString(" ", 10 - (String.valueOf(ic.roundToTwo(endTaxes)).length()))
                 + ic.roundToTwo(endTaxes);
         finalSummaryOutput += " $" + ic.generateRepeatString(" ", 10 - (String.valueOf(ic.roundToTwo(endTotal)).length()))
                 + ic.roundToTwo(endTotal);

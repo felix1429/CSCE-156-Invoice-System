@@ -210,8 +210,8 @@ DROP TABLE IF EXISTS `Invoices`;
 CREATE TABLE `Invoices` (
   `InvoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `InvoiceCode` varchar(30) NOT NULL,
-  `CustomerID` int(20) DEFAULT NULL,
-  `PersonID` int(30) DEFAULT NULL,
+  `CustomerID` int(20) NOT NULL,
+  `PersonID` int(30) NOT NULL,
   `ProductID` int(30) DEFAULT NULL,
   `NumberOfUnits` int(11) NOT NULL DEFAULT '0',
   `NumberOfHours` float(15) NOT NULL DEFAULT '0',
